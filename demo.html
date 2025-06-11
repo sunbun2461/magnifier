@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enhanced Image Magnifier - Comprehensive Demo</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 50px;
+            padding: 40px 0;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .header h1 {
+            font-size: 3rem;
+            color: #2c3e50;
+            margin-bottom: 10px;
+            background: linear-gradient(45deg, #3498db, #9b59b6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .header p {
+            font-size: 1.2rem;
+            color: #7f8c8d;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .demo-section {
+            margin-bottom: 60px;
+            background: white;
+            border-radius: 15px;
+            padding: 40px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .demo-section h2 {
+            font-size: 2rem;
+            color: #2c3e50;
+            margin-bottom: 20px;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 10px;
+        }
+
+        .demo-section p {
+            margin-bottom: 30px;
+            color: #7f8c8d;
+            font-size: 1.1rem;
+        }
+
+        .demo-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: start;
+        }
+
+        .demo-item {
+            text-align: center;
+        }
+
+        .demo-item img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .demo-item img:hover {
+            transform: translateY(-5px);
+        }
+
+        .demo-item h3 {
+            margin: 20px 0 10px;
+            color: #2c3e50;
+            font-size: 1.3rem;
+        }
+
+        .demo-item .description {
+            color: #7f8c8d;
+            font-size: 0.95rem;
+            margin-bottom: 20px;
+        }
+
+        .options-panel {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 30px;
+            margin-top: 30px;
+        }
+
+        .options-panel h3 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+            font-size: 1.2rem;
+        }
+
+        .option-group {
+            margin-bottom: 20px;
+        }
+
+        .option-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #555;
+            font-weight: 500;
+        }
+
+        .option-group input, .option-group select {
+            width: 100%;
+            padding: 8px 12px;
+            border: 2px solid #e9ecef;
+            border-radius: 5px;
+            font-size: 14px;
+            transition: border-color 0.3s ease;
+        }
+
+        .option-group input:focus, .option-group select:focus {
+            outline: none;
+            border-color: #3498db;
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .checkbox-group input[type="checkbox"] {
+            width: auto;
+        }
+
+        .btn {
+            background: linear-gradient(45deg, #3498db, #2980b9);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: transform 0.3s ease;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .code-block {
+            background: #2c3e50;
+            color: #ecf0f1;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+        }
+
+        .feature-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .feature-item {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .feature-item h4 {
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+
+        .portal-container {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 10000;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            padding: 10px;
+        }
+
+        .mobile-note {
+            background: #f39c12;
+            color: white;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        @media (max-width: 768px) {
+            .demo-grid {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+            
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .container {
+                padding: 10px;
+            }
+            
+            .demo-section {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>🔍 Enhanced Image Magnifier</h1>
+            <p>Complete vanilla JavaScript implementation inspired by React Image Magnifier Waft</p>
+            <div class="mobile-note">
+                📱 <strong>Mobile Users:</strong> Try long-press and drag gestures on touch-enabled demos!
+            </div>
+        </div>
+
+        <!-- Features Overview -->
+        <div class="demo-section">
+            <h2>✨ Key Features</h2>
+            <div class="feature-list">
+                <div class="feature-item">
+                    <h4>🛒 E-commerce Ready</h4>
+                    <p>Amazon/Flipkart style magnification</p>
+                </div>
+                <div class="feature-item">
+                    <h4>📱 Touch Support</h4>
+                    <p>Mobile-optimized with gestures</p>
+                </div>
+                <div class="feature-item">
+                    <h4>🎨 Customizable</h4>
+                    <p>Extensive styling options</p>
+                </div>
+                <div class="feature-item">
+                    <h4>⚡ Performance</h4>
+                    <p>Optimized with smart loading</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Demo 1: E-commerce Style -->
+        <div class="demo-section">
+            <h2>🛒 E-commerce Product Magnifier</h2>
+            <p>Classic side-by-side magnification perfect for product pages. Hover over the image to see the magnified view appear alongside.</p>
+            
+            <div class="demo-grid">
+                <div class="demo-item">
+                    <h3>Product Image</h3>
+                    <img id="ecommerce-image" 
+                         src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=80" 
+                         alt="Premium Watch"
+                         style="width: 400px; height: 400px; object-fit: cover;">
+                    <div class="description">
+                        <strong>Features:</strong> Side-by-side zoom (set enlargedImagePosition: 'beside' + inPlace: false), 3x magnification, elegant styling, hover delay
+                    </div>
+                </div>
+                
+                <div class="options-panel">
+                    <h3>Configuration</h3>
+                    <div class="code-block">
+const magnifier = new EnhancedImageMagnifier('#ecommerce-image', {
+    largeImage: {
+        src: 'high-res-image.jpg',
+        width: 1200,
+        height: 1200
+    },
+    mode: 'hover',
+    enlargedImagePosition: 'beside',  // Side-by-side!
+    inPlace: false,                   // Must be false
+    zoomContainerWidth: 500,
+    zoomContainerHeight: 500,
+    zoom: 3,
+    distance: 20,
+    borderColor: '#ff6b35',
+    hoverDelayInMs: 200
+});
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Demo 2: In-Place Overlay -->
+        <div class="demo-section">
+            <h2>🎯 In-Place Overlay Magnifier</h2>
+            <p>Magnification appears directly over the image, perfect for galleries and detailed inspection.</p>
+            
+            <div class="demo-grid">
+                <div class="demo-item">
+                    <h3>Gallery Image</h3>
+                    <img id="overlay-image" 
+                         src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" 
+                         alt="Luxury Interior"
+                         style="width: 400px; height: 300px; object-fit: cover;">
+                    <div class="description">
+                        <strong>Features:</strong> Overlay positioning, circular lens, positive space lens, smooth transitions
+                    </div>
+                </div>
+                
+                <div class="options-panel">
+                    <h3>Configuration</h3>
+                    <div class="code-block">
+const overlayMagnifier = new EnhancedImageMagnifier('#overlay-image', {
+    largeImage: {
+        src: 'gallery-large.jpg',
+        width: 1600,
+        height: 1200
+    },
+    mode: 'hover',
+    inPlace: true,
+    width: 250,
+    height: 250,
+    zoom: 4,
+    borderRadius: 125,
+    shouldUsePositiveSpaceLens: true,
+    borderColor: '#d4af37'
+});
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Demo 3: Touch/Mobile Optimized -->
+        <div class="demo-section">
+            <h2>📱 Touch-Enabled Magnifier</h2>
+            <p>Optimized for mobile devices with touch gestures, long-press activation, and drag-to-zoom functionality.</p>
+            
+            <div class="demo-grid">
+                <div class="demo-item">
+                    <h3>Mobile-Friendly Image</h3>
+                    <img id="touch-image" 
+                         src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" 
+                         alt="Smartphone"
+                         style="width: 350px; height: 350px; object-fit: cover; cursor: crosshair;">
+                    <div class="description">
+                        <strong>Features:</strong> Long-press activation, drag to zoom, touch-optimized, hint system
+                    </div>
+                </div>
+                
+                <div class="options-panel">
+                    <h3>Configuration</h3>
+                    <div class="code-block">
+const touchMagnifier = new EnhancedImageMagnifier('#touch-image', {
+    largeImage: {
+        src: 'mobile-large.jpg',
+        width: 1400,
+        height: 1400
+    },
+    mode: 'move',
+    isActivatedOnTouch: true,
+    pressDuration: 300,
+    zoomFactor: 3,
+    isHintEnabled: true,
+    hintTextTouch: '👆 Long press and drag'
+});
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Demo 4: Portal Rendering -->
+        <div class="demo-section">
+            <h2>🚪 Portal Rendering Demo</h2>
+            <p>Magnified view renders in a separate container (see top-right corner when hovering).</p>
+            
+            <div class="demo-grid">
+                <div class="demo-item">
+                    <h3>Source Image</h3>
+                    <img id="portal-image" 
+                         src="https://images.unsplash.com/photo-1560472354-b33ff0c44a43?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" 
+                         alt="Camera Lens"
+                         style="width: 350px; height: 350px; object-fit: cover;">
+                    <div class="description">
+                        <strong>Features:</strong> External rendering, fixed positioning, independent container
+                    </div>
+                </div>
+                
+                <div class="options-panel">
+                    <h3>Configuration</h3>
+                    <div class="code-block">
+const portalMagnifier = new EnhancedImageMagnifier('#portal-image', {
+    largeImage: {
+        src: 'camera-large.jpg',
+        width: 1600,
+        height: 1600
+    },
+    enlargedImagePortalId: 'zoom-portal',
+    zoomContainerWidth: 300,
+    zoomContainerHeight: 300,
+    zoom: 2.5,
+    borderColor: '#00d4ff'
+});
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Demo 5: Advanced Configuration -->
+        <div class="demo-section">
+            <h2>⚙️ Interactive Configuration Demo</h2>
+            <p>Try different settings in real-time to see how they affect the magnifier behavior.</p>
+            
+            <div class="demo-grid">
+                <div class="demo-item">
+                    <h3>Configurable Image</h3>
+                    <img id="config-image" 
+                         src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" 
+                         alt="Sneakers"
+                         style="width: 350px; height: 350px; object-fit: cover;">
+                    <div class="description">
+                        <strong>Current Settings:</strong> <span id="current-settings">Default configuration</span>
+                    </div>
+                </div>
+                
+                <div class="options-panel">
+                    <h3>Live Configuration</h3>
+                    
+                    <div class="option-group">
+                        <label for="zoom-level">Zoom Level:</label>
+                        <input type="range" id="zoom-level" min="2" max="6" value="3" step="0.5">
+                        <span id="zoom-value">3</span>
+                    </div>
+                    
+                    <div class="option-group">
+                        <label for="container-width">Container Width:</label>
+                        <input type="range" id="container-width" min="200" max="600" value="400" step="50">
+                        <span id="width-value">400px</span>
+                    </div>
+                    
+                    <div class="option-group">
+                        <label for="border-color">Border Color:</label>
+                        <input type="color" id="border-color" value="#0066cc">
+                    </div>
+                    
+                    <div class="option-group">
+                        <label for="magnifier-mode">Mode:</label>
+                        <select id="magnifier-mode">
+                            <option value="hover">Hover</option>
+                            <option value="move">Move</option>
+                        </select>
+                    </div>
+                    
+                    <div class="option-group">
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="in-place">
+                            <label for="in-place">In-place mode</label>
+                        </div>
+                    </div>
+                    
+                    <div class="option-group">
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="positive-lens">
+                            <label for="positive-lens">Positive space lens</label>
+                        </div>
+                    </div>
+                    
+                    <button class="btn" id="apply-config">Apply Configuration</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Installation & Usage -->
+        <div class="demo-section">
+            <h2>🚀 Installation & Usage</h2>
+            <p>Get started with the Enhanced Image Magnifier in just a few steps:</p>
+            
+            <h3>1. Include the Script</h3>
+            <div class="code-block">
+&lt;script src="enhanced-magnifier.js"&gt;&lt;/script&gt;
+            </div>
+            
+            <h3>2. Basic HTML Structure</h3>
+            <div class="code-block">
+&lt;div style="position: relative;"&gt;
+    &lt;img id="my-image" src="small-image.jpg" alt="Product"&gt;
+&lt;/div&gt;
+            </div>
+            
+            <h3>3. Initialize the Magnifier</h3>
+            <div class="code-block">
+const magnifier = new EnhancedImageMagnifier('#my-image', {
+    largeImage: {
+        src: 'large-image.jpg',
+        width: 1200,
+        height: 1200
+    },
+    zoom: 3,
+    zoomContainerWidth: 500,
+    zoomContainerHeight: 500
+});
+            </div>
+            
+            <h3>4. Cleanup (Optional)</h3>
+            <div class="code-block">
+// Destroy specific instance
+magnifier.destroy();
+
+// Or cleanup all instances
+EnhancedImageMagnifier.cleanup();
+            </div>
+        </div>
+    </div>
+
+    <!-- Portal container for portal demo -->
+    <div id="zoom-portal" class="portal-container"></div>
+
+    <!-- Include the magnifier script -->
+    <script src="enhanced-magnifier.js"></script>
+
+    <script>
+        // Initialize all demo magnifiers
+        let magnifiers = {};
+
+        // E-commerce style magnifier (Side-by-Side)
+        magnifiers.ecommerce = new EnhancedImageMagnifier('#ecommerce-image', {
+            largeImage: {
+                src: 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80',
+                width: 1200,
+                height: 1200
+            },
+            mode: 'hover',
+            enlargedImagePosition: 'beside',  // Side-by-side positioning
+            inPlace: false,                   // Must be false for side-by-side
+            zoomContainerWidth: 500,          // Magnifier window size
+            zoomContainerHeight: 500,
+            zoom: 3,
+            distance: 20,                     // Distance from original image
+            hoverDelayInMs: 200,
+            fadeDurationInMs: 250,
+            className: 'ecommerce-magnifier'
+        });
+
+        // Overlay magnifier
+        magnifiers.overlay = new EnhancedImageMagnifier('#overlay-image', {
+            largeImage: {
+                src: 'https://images.unsplash.com/photo-1441986300917-64674bd600d8?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80',
+                width: 1600,
+                height: 1200
+            },
+            mode: 'hover',
+            inPlace: true,
+            width: 250,
+            height: 250,
+            zoom: 4,
+            borderRadius: 125,
+            shouldUsePositiveSpaceLens: true,
+            className: 'luxury-magnifier'
+        });
+
+        // Touch-enabled magnifier
+        magnifiers.touch = new EnhancedImageMagnifier('#touch-image', {
+            largeImage: {
+                src: 'https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?ixlib=rb-4.0.3&auto=format&fit=crop&w=1400&q=80',
+                width: 1400,
+                height: 1400
+            },
+            mode: 'move',
+            isActivatedOnTouch: true,
+            pressDuration: 300,
+            pressMoveThreshold: 10,
+            zoomFactor: 3,
+            isHintEnabled: true,
+            hintTextMouse: '🖱️ Click and drag to zoom',
+            hintTextTouch: '👆 Long press and drag',
+            className: 'tech-magnifier'
+        });
+
+        // Portal rendering magnifier
+        magnifiers.portal = new EnhancedImageMagnifier('#portal-image', {
+            largeImage: {
+                src: 'https://images.unsplash.com/photo-1560472354-b33ff0c44a43?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80',
+                width: 1600,
+                height: 1600
+            },
+            enlargedImagePortalId: 'zoom-portal',
+            zoomContainerWidth: 300,
+            zoomContainerHeight: 300,
+            zoom: 2.5,
+            hoverDelayInMs: 100
+        });
+
+        // Configurable magnifier
+        magnifiers.config = new EnhancedImageMagnifier('#config-image', {
+            largeImage: {
+                src: 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?ixlib=rb-4.0.3&auto=format&fit=crop&w=1400&q=80',
+                width: 1400,
+                height: 1400
+            },
+            mode: 'hover',
+            zoom: 3,
+            zoomContainerWidth: 400,
+            zoomContainerHeight: 400
+        });
+
+        // Interactive configuration
+        const zoomSlider = document.getElementById('zoom-level');
+        const widthSlider = document.getElementById('container-width');
+        const borderColorInput = document.getElementById('border-color');
+        const modeSelect = document.getElementById('magnifier-mode');
+        const inPlaceCheck = document.getElementById('in-place');
+        const positiveLensCheck = document.getElementById('positive-lens');
+        const applyButton = document.getElementById('apply-config');
+        const currentSettings = document.getElementById('current-settings');
+
+        // Update display values
+        zoomSlider.addEventListener('input', (e) => {
+            document.getElementById('zoom-value').textContent = e.target.value;
+        });
+
+        widthSlider.addEventListener('input', (e) => {
+            document.getElementById('width-value').textContent = e.target.value + 'px';
+        });
+
+        // Apply configuration
+        applyButton.addEventListener('click', () => {
+            const newOptions = {
+                zoom: parseFloat(zoomSlider.value),
+                zoomContainerWidth: parseInt(widthSlider.value),
+                zoomContainerHeight: parseInt(widthSlider.value),
+                borderColor: borderColorInput.value,
+                mode: modeSelect.value,
+                inPlace: inPlaceCheck.checked,
+                shouldUsePositiveSpaceLens: positiveLensCheck.checked
+            };
+
+            // Destroy and recreate magnifier with new options
+            magnifiers.config.destroy();
+            magnifiers.config = new EnhancedImageMagnifier('#config-image', {
+                largeImage: {
+                    src: 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?ixlib=rb-4.0.3&auto=format&fit=crop&w=1400&q=80',
+                    width: 1400,
+                    height: 1400
+                },
+                ...newOptions
+            });
+
+            // Update current settings display
+            currentSettings.textContent = `Zoom: ${newOptions.zoom}x, Size: ${newOptions.zoomContainerWidth}px, Mode: ${newOptions.mode}`;
+        });
+
+        // Cleanup on page unload
+        window.addEventListener('beforeunload', () => {
+            Object.values(magnifiers).forEach(magnifier => {
+                if (magnifier && typeof magnifier.destroy === 'function') {
+                    magnifier.destroy();
+                }
+            });
+        });
+
+        console.log('🔍 Enhanced Image Magnifier Demo Loaded!');
+        console.log('Magnifier instances:', magnifiers);
+    </script>
+</body>
+</html>
