@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Magnifier Only</title>
+	<link rel="stylesheet" href="css/magnifier.css">
+</head>
+<body>
+    <div class="container">
+        <h1>🔍 Enhanced Magnifier with Different Aspect Ratios</h1>
+        
+        <!-- Original (standard) Product -->
+        <div class="product-section">
+            <div class="product-image">
+                <div class="aspect-ratio-label">Standard Responsive</div>
+                <img id="product-image-standard" 
+                     src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" 
+                     alt="Premium Watch">
+            </div>
+            
+            <div class="product-info">
+                <h2>Premium Luxury Watch</h2>
+                <div class="price">$299.99</div>
+                <div class="description">
+                    This elegant timepiece combines classic design with modern functionality. 
+                    Crafted with precision and attention to detail, it features a durable 
+                    stainless steel case and a comfortable leather strap.
+                    <br><br>
+                    <strong>Hover over the image</strong> to see the magnification in action!
+                </div>
+                <button class="btn">Add to Cart</button>
+                <button class="btn" style="background: #28a745;">Buy Now</button>
+            </div>
+        </div>
+        
+        <!-- Square (1:1) Aspect Ratio -->
+        <div class="product-section ratio-1-1">
+            <div class="product-image">
+                <div class="aspect-ratio-label">Square (1:1)</div>
+                <img id="product-image-square" 
+                     src="https://images.unsplash.com/photo-1517336714731-489689fd1ca8?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" 
+                     alt="Classic Watch">
+            </div>
+            
+            <div class="product-info">
+                <h2>Classic Dress Watch</h2>
+                <div class="price">$249.99</div>
+                <div class="description">
+                    Perfect for formal occasions, this classic dress watch features a minimalist design
+                    and premium materials. The square aspect ratio (1:1) is ideal for product photos
+                    that need equal dimensions.
+                    <br><br>
+                    <strong>Hover over the image</strong> to see the square magnification!
+                </div>
+                <button class="btn">Add to Cart</button>
+                <button class="btn" style="background: #28a745;">Buy Now</button>
+            </div>
+        </div>
+        
+        <!-- Landscape (16:9) Aspect Ratio -->
+        <div class="product-section ratio-16-9">
+            <div class="product-image">
+                <div class="aspect-ratio-label">Landscape (16:9)</div>
+                <img id="product-image-landscape" 
+                     src="https://images.unsplash.com/photo-1593642632823-8f785ba67e45?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" 
+                     alt="Laptop Computer">
+            </div>
+            
+            <div class="product-info">
+                <h2>Ultra-Thin Laptop</h2>
+                <div class="price">$1299.99</div>
+                <div class="description">
+                    This powerful laptop features a stunning widescreen display, all-day battery life,
+                    and a sleek design. The 16:9 aspect ratio is perfect for showcasing wide products
+                    like laptops, TVs, and keyboards.
+                    <br><br>
+                    <strong>Hover over the image</strong> to see the widescreen magnification!
+                </div>
+                <button class="btn">Add to Cart</button>
+                <button class="btn" style="background: #28a745;">Buy Now</button>
+            </div>
+        </div>
+        
+        <!-- Portrait (4:5) Aspect Ratio -->
+        <div class="product-section ratio-4-5">
+            <div class="product-image">
+                <div class="aspect-ratio-label">Portrait (4:5)</div>
+                <img id="product-image-portrait" 
+                     src="https://images.unsplash.com/photo-1607936854279-55e8a4c64888?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" 
+                     alt="Smartphone">
+            </div>
+            
+            <div class="product-info">
+                <h2>Premium Smartphone</h2>
+                <div class="price">$899.99</div>
+                <div class="description">
+                    This flagship smartphone features a stunning display, professional-grade camera system,
+                    and all-day battery life. The 4:5 portrait aspect ratio is ideal for tall products
+                    like phones, bottles, and apparel.
+                    <br><br>
+                    <strong>Hover over the image</strong> to see the portrait magnification!
+                </div>
+                <button class="btn">Add to Cart</button>
+                <button class="btn" style="background: #28a745;">Buy Now</button>
+            </div>
+        </div>
+        
+        <!-- Ultra-Wide (21:9) Aspect Ratio -->
+        <div class="product-section ratio-21-9">
+            <div class="product-image">
+                <div class="aspect-ratio-label">Ultra-Wide (21:9)</div>
+                <img id="product-image-ultrawide" 
+                     src="https://thinglabs.io/wp-content/uploads/thinglabs-display-resolutions.webp" 
+                     alt="Display Resolutions">
+            </div>
+            
+            <div class="product-info">
+                <h2>Display Resolutions</h2>
+                <div class="price">$249.99</div>
+                <div class="description">
+                    A comprehensive visual guide to common display resolutions. Perfect for understanding the
+                    differences between standard, HD, 4K, and 8K displays. The ultra-wide 21:9 format
+                    presents this technical comparison clearly.
+                    <br><br>
+                    <strong>Hover over the image</strong> to see the ultra-wide magnification!
+                </div>
+                <button class="btn">Add to Cart</button>
+                <button class="btn" style="background: #28a745;">Buy Now</button>
+            </div>
+        </div>
+        
+        <div class="code-example">
+            <h3>Implementation Code:</h3>
+            <pre>
+// HTML
+&lt;img id="product-image" src="small-image.jpg" alt="Product"&gt;
+
+// JavaScript - Dynamic In-Place Mode
+const imageElement = document.getElementById('product-image');
+const imageRect = imageElement.getBoundingClientRect();
+
+const magnifier = new EnhancedImageMagnifier('#product-image', {
+    largeImage: {
+        src: 'large-image.jpg',
+        width: 1500,
+        height: 1500
+    },
+    inPlace: true,                    // In-place overlay mode
+    width: imageRect.width,           // Match image width
+    height: imageRect.height,         // Match image height
+    zoom: 3,
+    hoverDelayInMs: 50               // Quick activation
+});
+            </pre>
+        </div>
+        
+        <h3>Features Demonstrated:</h3>
+        <ul>
+            <li>✅ In-place overlay magnification</li>
+            <li>✅ Dynamic sizing (matches image dimensions)</li>
+            <li>✅ Smooth hover transitions</li>
+            <li>✅ High-quality image zoom</li>
+            <li>✅ Responsive resizing</li>
+            <li>✅ Borderless design</li>
+            <li>✅ Perfect edge detection</li>
+            <li>✅ Crosshair cursor on hover</li>
+        </ul>
+    </div>
+
+    <script src="enhanced-magnifier.js"></script>
+    <script>
+        // Product configurations
+        const products = [
+            {
+                id: 'product-image-standard',
+                largeImage: 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?ixlib=rb-4.0.3&auto=format&fit=crop&w=1500&q=80',
+                zoom: 2.5
+            },
+            {
+                id: 'product-image-square',
+                largeImage: 'https://images.unsplash.com/photo-1517336714731-489689fd1ca8?ixlib=rb-4.0.3&auto=format&fit=crop&w=1500&q=80',
+                zoom: 2.5
+            },
+            {
+                id: 'product-image-landscape',
+                largeImage: 'https://images.unsplash.com/photo-1593642632823-8f785ba67e45?ixlib=rb-4.0.3&auto=format&fit=crop&w=1800&q=80',
+                zoom: 2.5
+            },
+            {
+                id: 'product-image-portrait',
+                largeImage: 'https://images.unsplash.com/photo-1607936854279-55e8a4c64888?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&h=1500&q=80',
+                zoom: 2
+            },
+            {
+                id: 'product-image-ultrawide',
+                largeImage: 'https://thinglabs.io/wp-content/uploads/thinglabs-display-resolutions.webp',
+                zoom: 2.5
+            }
+        ];
+        
+        // Keep track of all magnifiers for cleanup
+        let magnifiers = [];
+        
+        // Function to initialize all magnifiers
+        function initializeMagnifiers() {
+            // Clean up existing magnifiers if any
+            cleanupAllMagnifiers();
+            
+            // Initialize each product magnifier
+            products.forEach(product => {
+                const imageElement = document.getElementById(product.id);
+                
+                if (!imageElement) {
+                    console.warn(`Element with ID ${product.id} not found`);
+                    return;
+                }
+                
+                // Wait for image to load to get accurate dimensions
+                if (imageElement.complete) {
+                    setupMagnifier(product);
+                } else {
+                    imageElement.addEventListener('load', () => setupMagnifier(product), { once: true });
+                }
+            });
+        }
+        
+        // Setup individual magnifier
+        function setupMagnifier(product) {
+            const imageElement = document.getElementById(product.id);
+            const imageRect = imageElement.getBoundingClientRect();
+            
+            // Get the actual displayed dimensions of the image
+            const displayedWidth = imageRect.width;
+            const displayedHeight = imageRect.height;
+            
+            // Calculate aspect ratio
+            const aspectRatio = displayedWidth / displayedHeight;
+            
+            // Load a temporary image to get the natural dimensions of the large image
+            const tempImg = new Image();
+            tempImg.src = product.largeImage;
+            
+            // Universal settings for all image types
+            const objectFitSetting = 'cover'; // Use cover for all images
+            let zoomLevel, offsetX = 0, offsetY = 0;
+            
+            // Calculate aspect ratio deviation from square (1:1)
+            const aspectRatioDeviation = Math.abs(aspectRatio - 1);
+            
+            // Universal zoom calculation that works for all aspect ratios
+            const baseZoom = 2.0; // Start with a moderate zoom level
+            
+            // Reduce zoom as aspect ratio deviates from square
+            // More extreme aspect ratios (very wide or very tall) get lower zoom
+            zoomLevel = Math.max(1.2, baseZoom - (aspectRatioDeviation * 0.4));
+            
+            // For ultra-wide or ultra-tall images, limit maximum zoom even more
+            if (aspectRatio > 2 || aspectRatio < 0.5) {
+                zoomLevel = Math.min(zoomLevel, 1.6);
+            }
+            
+            // Enhanced logging to help with debugging
+            console.log(`${product.id} displayed at: ${displayedWidth}x${displayedHeight}, aspect ratio: ${aspectRatio.toFixed(2)}, deviation: ${aspectRatioDeviation.toFixed(2)}, zoom: ${zoomLevel.toFixed(2)}`);
+            
+            
+            // Set up special options for ultra-wide images
+            const magnifierOptions = {
+                largeImage: {
+                    src: product.largeImage,
+                    preserveAspectRatio: true
+                },
+                mode: 'hover',
+                inPlace: true,
+                width: displayedWidth,
+                height: displayedHeight,
+                zoom: zoomLevel,
+                offsetX: offsetX,
+                offsetY: offsetY,
+                hoverDelayInMs: 50,
+                fadeDurationInMs: 325,
+                enlargedImageContainerStyle: {
+                    overflow: 'hidden' // Prevent magnified image from overflowing
+                },
+                enlargedImageStyle: {
+                    objectFit: objectFitSetting,
+                    maxWidth: 'none',
+                    maxHeight: 'none'
+                }
+            };
+            
+            // Add universal smooth transitions for all images
+            magnifierOptions.enlargedImageStyle = {
+                ...magnifierOptions.enlargedImageStyle,
+                objectFit: objectFitSetting,
+                objectPosition: 'center', // Start centered
+                transition: 'transform 0.1s ease-out' // Smoother movement for all images
+            };
+            
+            // Initialize the magnifier with the customized options
+            const magnifier = new EnhancedImageMagnifier(`#${product.id}`, magnifierOptions);
+            
+            magnifiers.push(magnifier);
+            
+            console.log(`Magnifier initialized for ${product.id}`);
+        }
+        
+        // Clean up all magnifiers
+        function cleanupAllMagnifiers() {
+            try {
+                EnhancedImageMagnifier.cleanup();
+                magnifiers = [];
+            } catch (e) {
+                console.warn('Error during magnifier cleanup:', e);
+            }
+        }
+        
+        // Handle window resize to update magnifier dimensions
+        function handleResize() {
+            // Debounce resize events
+            clearTimeout(window.resizeTimer);
+            window.resizeTimer = setTimeout(() => {
+                initializeMagnifiers();
+            }, 250);
+        }
+        
+        // Initialize when page loads
+        document.addEventListener('DOMContentLoaded', initializeMagnifiers);
+        
+        // Handle window resize
+        window.addEventListener('resize', handleResize);
+        
+        console.log('Multiple aspect ratio magnifier examples loaded!');
+    </script>
+</body>
+</html>

@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gallery with Vertical Thumbnails - Enhanced Magnifier</title>
+	<link rel="stylesheet" href="css/gallery.css">
+</head>
+<body>
+    <div class="gallery-container">
+        <div class="gallery-header">
+            <h1>🖼️ Enhanced Gallery</h1>
+            <p>Vertical thumbnails with image magnification</p>
+        </div>
+
+        <div class="gallery-layout">
+            <!-- Vertical thumbnail slider - now on the left -->
+            <div class="thumbnail-slider">
+                <div class="embla">
+                    <div class="embla__container" id="embla-container">
+                        <!-- Thumbnails populated by JS -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Main image display with side navigation -->
+            <div class="main-image-container main-nav-buttons">
+                <button class="main-nav-button prev" id="main-prev">❮</button>
+                <img id="main-image" 
+                     class="main-image" 
+                     src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" 
+                     alt="Premium Watch">
+                <button class="main-nav-button next" id="main-next">❯</button>
+            </div>
+
+            <!-- Product information -->
+            <div class="product-info">
+                <h2 class="product-title" id="product-title">Premium Watch</h2>
+                <div class="product-price" id="product-price">$299.99</div>
+                <div class="product-description" id="product-description">
+                    Elegant timepiece with precision movement and classic design.
+                </div>
+                
+                <button class="btn btn-primary">Add to Cart</button>
+
+                <div class="features">
+                    <h3>Gallery Features:</h3>
+                    <ul>
+                        <li>Vertical thumbnails</li>
+                        <li>Image magnification</li>
+                        <li>Smooth transitions</li>
+                        <li>Touch friendly</li>
+                        <li>Responsive design</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Local Embla Carousel -->
+    <script src="embla-carousel.js"></script>
+    
+    <!-- Enhanced Magnifier -->
+    <script src="enhanced-magnifier.js"></script>
+
+    <script>
+        // Lightweight gallery data
+        const galleryItems = [
+            {
+                title: "Classic Gold Watch",
+                price: "$299.99", 
+                description: "Elegant gold timepiece with leather strap.",
+                small: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
+                large: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
+                thumb: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80"
+            },
+            {
+                title: "Smart Watch",
+                price: "$449.99",
+                description: "Advanced smartwatch with health monitoring.",
+                small: "https://images.unsplash.com/photo-1434493789847-2f02dc6ca35d?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
+                large: "https://images.unsplash.com/photo-1434493789847-2f02dc6ca35d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
+                thumb: "https://images.unsplash.com/photo-1434493789847-2f02dc6ca35d?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80"
+            },
+            {
+                title: "Vintage Chronograph",
+                price: "$599.99",
+                description: "Retro chronograph with authentic styling.",
+                small: "https://images.unsplash.com/photo-1594534475808-b18fc33b045e?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
+                large: "https://images.unsplash.com/photo-1594534475808-b18fc33b045e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
+                thumb: "https://images.unsplash.com/photo-1594534475808-b18fc33b045e?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80"
+            },
+            {
+                title: "Luxury Dress Watch",
+                price: "$899.99",
+                description: "Sophisticated dress watch for formal occasions.",
+                small: "https://images.unsplash.com/photo-1522312346375-d1a52e2b99b3?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
+                large: "https://images.unsplash.com/photo-1522312346375-d1a52e2b99b3?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
+                thumb: "https://images.unsplash.com/photo-1522312346375-d1a52e2b99b3?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80"
+            },
+            {
+                title: "Sport Watch",
+                price: "$379.99",
+                description: "Durable sport watch with water resistance.",
+                small: "https://images.unsplash.com/photo-1609081219090-a6d81d3085bf?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
+                large: "https://images.unsplash.com/photo-1609081219090-a6d81d3085bf?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
+                thumb: "https://images.unsplash.com/photo-1609081219090-a6d81d3085bf?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80"
+            }
+        ];
+
+        let emblaApi;
+        let currentMagnifier = null;
+        let currentIndex = 0;
+
+        // Initialize gallery
+        function init() {
+            createThumbnails();
+            setupEmbla();
+            setupMagnifier(galleryItems[0]);
+            updateInfo(galleryItems[0]);
+        }
+
+        // Create thumbnail slides
+        function createThumbnails() {
+            const container = document.getElementById('embla-container');
+            container.innerHTML = '';
+
+            galleryItems.forEach((item, index) => {
+                const slide = document.createElement('div');
+                slide.className = `embla__slide ${index === 0 ? 'is-selected' : ''}`;
+                slide.innerHTML = `<img src="${item.thumb}" alt="${item.title}">`;
+                
+                slide.addEventListener('click', () => {
+                    emblaApi.scrollTo(index);
+                    selectImage(index);
+                });
+
+                container.appendChild(slide);
+            });
+        }
+
+        // Setup Embla
+        function setupEmbla() {
+            const embla = document.querySelector('.embla');
+            emblaApi = EmblaCarousel(embla, {
+                axis: 'y',
+                dragFree: false
+            });
+
+            // No thumbnail navigation buttons anymore
+            
+            // Main image side navigation
+            document.getElementById('main-prev').addEventListener('click', () => {
+                if (currentIndex > 0) {
+                    emblaApi.scrollTo(currentIndex - 1);
+                    selectImage(currentIndex - 1);
+                }
+            });
+            
+            document.getElementById('main-next').addEventListener('click', () => {
+                if (currentIndex < galleryItems.length - 1) {
+                    emblaApi.scrollTo(currentIndex + 1);
+                    selectImage(currentIndex + 1);
+                }
+            });
+
+            emblaApi.on('select', () => {
+                const index = emblaApi.selectedScrollSnap();
+                selectImage(index);
+                updateButtons();
+            });
+
+            updateButtons();
+        }
+
+        // Update button states
+        function updateButtons() {
+            // Update main navigation buttons
+            document.getElementById('main-prev').style.opacity = currentIndex > 0 ? '1' : '0.3';
+            document.getElementById('main-next').style.opacity = currentIndex < galleryItems.length - 1 ? '1' : '0.3';
+        }
+
+        // Select image
+        function selectImage(index) {
+            if (index === currentIndex) return;
+            
+            currentIndex = index;
+            const item = galleryItems[index];
+
+            // Update main image
+            const mainImage = document.getElementById('main-image');
+            mainImage.src = item.small;
+            mainImage.alt = item.title;
+
+            // Update thumbnail selection
+            document.querySelectorAll('.embla__slide').forEach((slide, i) => {
+                slide.classList.toggle('is-selected', i === index);
+            });
+
+            updateInfo(item);
+            setupMagnifier(item);
+        }
+
+        // Update product info
+        function updateInfo(item) {
+            document.getElementById('product-title').textContent = item.title;
+            document.getElementById('product-price').textContent = item.price;
+            document.getElementById('product-description').textContent = item.description;
+        }
+
+        // Setup magnifier
+        function setupMagnifier(item) {
+            if (currentMagnifier) {
+                try {
+                    EnhancedImageMagnifier.cleanup();
+                } catch (e) {
+                    // Cleanup handled
+                }
+            }
+
+            const mainImage = document.getElementById('main-image');
+            
+            function initMagnifier() {
+                // Fixed dimensions in pixels (29.25rem = 468px)
+                const exactWidth = 29.25 * 16; // 468px
+                const exactHeight = 29.25 * 16; // 468px
+                
+                currentMagnifier = new EnhancedImageMagnifier('#main-image', {
+                    largeImage: {
+                        src: item.large,
+                        width: 1200,
+                        height: 1200,
+                        preserveAspectRatio: true
+                    },
+                    mode: 'hover',
+                    inPlace: true,
+                    width: exactWidth,
+                    height: exactHeight,
+                    zoom: 2,
+                    hoverDelayInMs: 0, // Immediate activation
+                    fadeDurationInMs: 325,
+                    // Fixed styling to prevent height issues
+                    enlargedImageContainerStyle: {
+                        width: exactWidth + 'px',
+                        height: exactHeight + 'px',
+                        maxHeight: exactHeight + 'px',
+                        overflow: 'hidden' // Prevent magnified image from overflowing
+                    },
+                    // Control the magnified image position
+                    enlargedImageStyle: {
+                        objectFit: 'contain',
+                        width: 'auto',
+                        height: 'auto',
+                        maxWidth: 'none',
+                        maxHeight: 'none'
+                    }
+                });
+            }
+
+            if (mainImage.complete) {
+                initMagnifier();
+            } else {
+                mainImage.addEventListener('load', initMagnifier, { once: true });
+            }
+        }
+
+        // Handle resize
+        function handleResize() {
+            if (emblaApi) emblaApi.reInit();
+            setTimeout(() => setupMagnifier(galleryItems[currentIndex]), 100);
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', init);
+        window.addEventListener('resize', handleResize);
+    </script>
+</body>
+</html>

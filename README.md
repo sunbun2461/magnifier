@@ -4,36 +4,40 @@ A comprehensive, vanilla JavaScript image magnifier inspired by **React Image Ma
 
 ## ✨ Features
 
-- **🔍 Multiple Magnification Modes**
-  - Side-by-side magnification (like Amazon/Flipkart)
-  - In-place/overlay magnification
-  - Zoom on hover mode
-  - Zoom on move/drag mode
+-   **🔍 Multiple Magnification Modes**
 
-- **📱 Touch & Mobile Support**
-  - Touch-friendly interactions
-  - Long-press gesture support
-  - Configurable touch activation
-  - Mobile-responsive design
+    -   Side-by-side magnification (like Amazon/Flipkart)
+    -   In-place/overlay magnification
+    -   Zoom on hover mode
+    -   Zoom on move/drag mode
 
-- **🎨 Advanced Styling**
-  - Positive and negative space lens options
-  - Customizable borders, shadows, and effects
-  - Fade transitions and animations
-  - Portal rendering support
-  - Custom CSS classes and styles
+-   **📱 Touch & Mobile Support**
 
-- **⚡ Performance Optimized**
-  - Hover intent delays
-  - Loading indicators
-  - Error handling
-  - Memory leak prevention
+    -   Touch-friendly interactions
+    -   Long-press gesture support
+    -   Configurable touch activation
+    -   Mobile-responsive design
 
-- **🛠 Developer Friendly**
-  - Comprehensive API
-  - TypeScript-style documentation
-  - Event callbacks
-  - Easy configuration
+-   **🎨 Advanced Styling**
+
+    -   Positive and negative space lens options
+    -   Customizable borders, shadows, and effects
+    -   Fade transitions and animations
+    -   Portal rendering support
+    -   Custom CSS classes and styles
+
+-   **⚡ Performance Optimized**
+
+    -   Hover intent delays
+    -   Loading indicators
+    -   Error handling
+    -   Memory leak prevention
+
+-   **🛠 Developer Friendly**
+    -   Comprehensive API
+    -   TypeScript-style documentation
+    -   Event callbacks
+    -   Easy configuration
 
 ## 🚀 Quick Start
 
@@ -47,9 +51,9 @@ A comprehensive, vanilla JavaScript image magnifier inspired by **React Image Ma
 </head>
 <body>
     <div style="padding: 50px;">
-        <img id="product-image" 
-             src="https://m.media-amazon.com/images/I/71sgEIlSvfL._AC_SX466_.jpg" 
-             alt="Product Image" 
+        <img id="product-image"
+             src="https://m.media-amazon.com/images/I/71sgEIlSvfL._AC_SX466_.jpg"
+             alt="Product Image"
              style="width: 400px; height: auto;">
     </div>
 
@@ -83,20 +87,20 @@ new EnhancedImageMagnifier(selector, options)
 
 #### Parameters
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
+| Parameter  | Type                    | Description                        |
+| ---------- | ----------------------- | ---------------------------------- |
 | `selector` | `string \| HTMLElement` | CSS selector string or DOM element |
-| `options` | `object` | Configuration options (see below) |
+| `options`  | `object`                | Configuration options (see below)  |
 
 ### Configuration Options
 
 #### Required Props
 
-| Option | Type | Default | Description |
-|--------|------|---------|-------------|
-| `largeImage.src` | `string` | `element.src` | **Required** - URL of the high-resolution image |
-| `largeImage.width` | `number` | `1200` | **Required** - Natural width of large image |
-| `largeImage.height` | `number` | `1800` | **Required** - Natural height of large image |
+| Option              | Type     | Default       | Description                                     |
+| ------------------- | -------- | ------------- | ----------------------------------------------- |
+| `largeImage.src`    | `string` | `element.src` | **Required** - URL of the high-resolution image |
+| `largeImage.width`  | `number` | `1200`        | **Required** - Natural width of large image     |
+| `largeImage.height` | `number` | `1800`        | **Required** - Natural height of large image    |
 
 #### Image Configuration
 
@@ -126,29 +130,29 @@ new EnhancedImageMagnifier(selector, options)
     mode: 'hover' | 'move',                    // Default: 'hover'
     enlargedImagePosition: 'beside' | 'over', // Default: 'beside'
     inPlace: boolean,                          // Default: false
-    
+
     // IMPORTANT: For side-by-side magnification:
     // - Set enlargedImagePosition: 'beside' AND inPlace: false
     // - Use zoomContainerWidth/Height for magnifier size
-    
+
     // IMPORTANT: For overlay magnification:
     // - Set inPlace: true (this overrides enlargedImagePosition)
     // - Use width/height for magnifier size
     // OR
     // - Set enlargedImagePosition: 'over' AND inPlace: false
     // - Use zoomContainerWidth/Height for magnifier size
-    
+
     // Zoom settings
     zoom: number,                              // Default: 3
     zoomFactor: number,                        // Default: 4 (for move mode)
     zoomLensScale: number,                     // Default: 3
-    
+
     // Container dimensions
     width: number,                             // Default: 300 (used when inPlace: true)
     height: number,                            // Default: 300 (used when inPlace: true)
     zoomContainerWidth: number,                // Default: 500 (used for side-by-side)
     zoomContainerHeight: number,               // Default: 500 (used for side-by-side)
-    
+
     // Positioning
     distance: number,                          // Default: 10 (space between image and magnifier)
     offsetX: number,                           // Default: 0
@@ -165,17 +169,17 @@ new EnhancedImageMagnifier(selector, options)
     borderWidth: number,                       // Default: 2
     borderRadius: number,                      // Default: 8
     boxShadow: string,                         // Default: '0 10px 30px rgba(0, 0, 0, 0.3)'
-    
+
     // Lens styling
     shouldUsePositiveSpaceLens: boolean,       // Default: false
     lensStyle: object,                         // Custom lens CSS styles
-    
+
     // CSS classes
     className: string,                         // Container class
     imageClassName: string,                    // Main image class
     enlargedImageContainerClassName: string,   // Magnifier container class
     enlargedImageClassName: string,            // Magnified image class
-    
+
     // CSS styles
     style: object,                             // Container styles
     imageStyle: object,                        // Main image styles
@@ -193,7 +197,7 @@ new EnhancedImageMagnifier(selector, options)
     hoverDelayInMs: number,                    // Default: 100
     hoverOffDelayInMs: number,                 // Default: 150
     delayTimer: number,                        // Default: 300
-    
+
     // Touch settings
     isActivatedOnTouch: boolean,               // Default: false
     pressDuration: number,                     // Default: 500
@@ -249,19 +253,21 @@ new EnhancedImageMagnifier(selector, options)
 There are **three ways** to position the magnified image:
 
 1. **Side-by-Side** (like Amazon/Flipkart):
-   - Set `enlargedImagePosition: 'beside'` AND `inPlace: false`
-   - Uses `zoomContainerWidth` and `zoomContainerHeight` for magnifier size
-   - Magnifier appears next to the original image
+
+    - Set `enlargedImagePosition: 'beside'` AND `inPlace: false`
+    - Uses `zoomContainerWidth` and `zoomContainerHeight` for magnifier size
+    - Magnifier appears next to the original image
 
 2. **In-Place Overlay** (magnifier over the image):
-   - Set `inPlace: true` (overrides `enlargedImagePosition`)
-   - Uses `width` and `height` for magnifier size
-   - Magnifier appears over the original image, following cursor
+
+    - Set `inPlace: true` (overrides `enlargedImagePosition`)
+    - Uses `width` and `height` for magnifier size
+    - Magnifier appears over the original image, following cursor
 
 3. **Alternative Overlay**:
-   - Set `enlargedImagePosition: 'over'` AND `inPlace: false`
-   - Uses `zoomContainerWidth` and `zoomContainerHeight` for magnifier size
-   - Similar to in-place but with different sizing options
+    - Set `enlargedImagePosition: 'over'` AND `inPlace: false`
+    - Uses `zoomContainerWidth` and `zoomContainerHeight` for magnifier size
+    - Similar to in-place but with different sizing options
 
 ---
 
@@ -390,43 +396,43 @@ const advancedMagnifier = new EnhancedImageMagnifier('#advanced-image', {
         height: 2160,
         alt: 'Product high resolution'
     },
-    
+
     // Behavior
     mode: 'hover',
     enlargedImagePosition: 'beside',
     zoom: 4,
     zoomLensScale: 2,
-    
+
     // Dimensions
     zoomContainerWidth: 600,
     zoomContainerHeight: 400,
     distance: 30,
-    
+
     // Styling
     borderColor: '#2196F3',
     borderWidth: 3,
     borderRadius: 12,
     boxShadow: '0 8px 32px rgba(33, 150, 243, 0.3)',
     shouldUsePositiveSpaceLens: true,
-    
+
     // Timing
     hoverDelayInMs: 300,
     hoverOffDelayInMs: 100,
     fadeDurationInMs: 400,
-    
+
     // Touch
     pressDuration: 600,
     pressMoveThreshold: 8,
-    
+
     // Hints
     isHintEnabled: true,
     hintTextMouse: '🔍 Hover to magnify',
     hintTextTouch: '👆 Long press to zoom',
-    
+
     // CSS classes
     className: 'magnifier-container',
     enlargedImageContainerClassName: 'zoom-window',
-    
+
     // Callbacks
     onZoomStart: () => console.log('Zoom started'),
     onZoomEnd: () => console.log('Zoom ended'),
@@ -536,62 +542,68 @@ const responsiveMagnifier = new EnhancedImageMagnifier('#responsive-image', {
 
 If you're migrating from the React package, here's the mapping:
 
-| React Prop | Vanilla JS Option | Notes |
-|------------|-------------------|-------|
-| `smallImage` | `smallImage` | Same structure |
-| `largeImage` | `largeImage` | Same structure |
-| `enlargedImagePosition` | `enlargedImagePosition` | Same values |
+| React Prop                         | Vanilla JS Option                  | Notes          |
+| ---------------------------------- | ---------------------------------- | -------------- |
+| `smallImage`                       | `smallImage`                       | Same structure |
+| `largeImage`                       | `largeImage`                       | Same structure |
+| `enlargedImagePosition`            | `enlargedImagePosition`            | Same values    |
 | `enlargedImageContainerDimensions` | `enlargedImageContainerDimensions` | Same structure |
-| `fadeDurationInMs` | `fadeDurationInMs` | Same |
-| `hoverDelayInMs` | `hoverDelayInMs` | Same |
-| `isActivatedOnTouch` | `isActivatedOnTouch` | Same |
-| `shouldUsePositiveSpaceLens` | `shouldUsePositiveSpaceLens` | Same |
+| `fadeDurationInMs`                 | `fadeDurationInMs`                 | Same           |
+| `hoverDelayInMs`                   | `hoverDelayInMs`                   | Same           |
+| `isActivatedOnTouch`               | `isActivatedOnTouch`               | Same           |
+| `shouldUsePositiveSpaceLens`       | `shouldUsePositiveSpaceLens`       | Same           |
 
 ## 🐛 Troubleshooting
 
 ### Common Issues
 
 1. **Magnifier not appearing**
-   - Check that `largeImage.src` is valid
-   - Ensure container has `position: relative`
-   - Verify image CORS settings
+
+    - Check that `largeImage.src` is valid
+    - Ensure container has `position: relative`
+    - Verify image CORS settings
 
 2. **Touch not working on mobile**
-   - Set `isActivatedOnTouch: true`
-   - Adjust `pressDuration` and `pressMoveThreshold`
-   - Check for conflicting touch event handlers
+
+    - Set `isActivatedOnTouch: true`
+    - Adjust `pressDuration` and `pressMoveThreshold`
+    - Check for conflicting touch event handlers
 
 3. **Performance issues**
-   - Increase `hoverDelayInMs` to reduce sensitivity
-   - Use appropriately sized images
-   - Enable `disableScrollLock` if needed
+
+    - Increase `hoverDelayInMs` to reduce sensitivity
+    - Use appropriately sized images
+    - Enable `disableScrollLock` if needed
 
 4. **Portal rendering not working**
-   - Ensure portal element exists in DOM
-   - Check element ID matches `enlargedImagePortalId`
-   - Verify portal container has proper positioning
+    - Ensure portal element exists in DOM
+    - Check element ID matches `enlargedImagePortalId`
+    - Verify portal container has proper positioning
 
 ## 🎯 Best Practices
 
 1. **Image Optimization**
-   - Use WebP format when possible
-   - Provide appropriate image dimensions
-   - Consider lazy loading for large images
+
+    - Use WebP format when possible
+    - Provide appropriate image dimensions
+    - Consider lazy loading for large images
 
 2. **Performance**
-   - Set reasonable hover delays
-   - Clean up instances when removing from DOM
-   - Use portal rendering for complex layouts
+
+    - Set reasonable hover delays
+    - Clean up instances when removing from DOM
+    - Use portal rendering for complex layouts
 
 3. **Accessibility**
-   - Always provide alt text
-   - Test with keyboard navigation
-   - Consider users with motion sensitivity
+
+    - Always provide alt text
+    - Test with keyboard navigation
+    - Consider users with motion sensitivity
 
 4. **Mobile Experience**
-   - Test touch interactions thoroughly
-   - Provide clear visual feedback
-   - Consider different screen sizes
+    - Test touch interactions thoroughly
+    - Provide clear visual feedback
+    - Consider different screen sizes
 
 ## 📄 License
 
@@ -603,8 +615,8 @@ This implementation is inspired by the excellent `easy-magnify-waft` React packa
 
 ## 📚 Related Projects
 
-- [easy-magnify-waft](https://www.npmjs.com/package/easy-magnify-waft) - Original React implementation
-- [react-image-magnify](https://www.npmjs.com/package/react-image-magnify) - Original React package
+-   [easy-magnify-waft](https://www.npmjs.com/package/easy-magnify-waft) - Original React implementation
+-   [react-image-magnify](https://www.npmjs.com/package/react-image-magnify) - Original React package
 
 ---
 

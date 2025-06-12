@@ -1,55 +1,58 @@
 {
-  "name": "enhanced-image-magnifier",
-  "version": "2.0.0",
-  "description": "Complete vanilla JavaScript image magnifier inspired by React Image Magnifier Waft. Features side-by-side and in-place magnification, touch support, and extensive customization options.",
-  "main": "enhanced-magnifier.js",
-  "scripts": {
-    "demo": "open demo.html",
-    "example": "open simple-example.html",
-    "serve": "python -m http.server 8000"
-  },
-  "keywords": [
-    "image",
-    "magnifier",
-    "zoom",
-    "vanilla-javascript",
-    "ecommerce",
-    "product-zoom",
-    "image-zoom",
-    "magnify",
-    "lens",
-    "responsive",
-    "touch",
-    "mobile",
-    "amazon",
-    "flipkart",
-    "gallery"
-  ],
-  "author": "Enhanced Image Magnifier Team",
-  "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/yourusername/enhanced-image-magnifier.git"
-  },
-  "bugs": {
-    "url": "https://github.com/yourusername/enhanced-image-magnifier/issues"
-  },
-  "homepage": "https://github.com/yourusername/enhanced-image-magnifier#readme",
-  "files": [
-    "enhanced-magnifier.js",
-    "README.md",
-    "demo.html",
-    "simple-example.html"
-  ],
-  "engines": {
-    "node": ">=12.0.0"
-  },
-  "devDependencies": {
-    "http-server": "^14.1.1"
-  },
-  "browserslist": [
-    "> 1%",
-    "last 2 versions",
-    "not dead"
-  ]
+	"name": "enhanced-image-magnifier",
+	"version": "2.0.0",
+	"description": "Complete vanilla JavaScript image magnifier inspired by React Image Magnifier Waft. Features side-by-side and in-place magnification, touch support, and extensive customization options.",
+	"main": "enhanced-magnifier.js",
+	"scripts": {
+		"demo": "open demo.html",
+		"example": "open magnifier-only.html",
+		"gallery": "open gallery-example.html",
+		"serve": "python -m http.server 8000",
+		"sass": "sass sass:css --watch",
+		"sass:build": "sass sass:css --style compressed",
+		"start": "npm run sass & npm run serve"
+	},
+	"keywords": [
+		"image",
+		"magnifier",
+		"zoom",
+		"vanilla-javascript",
+		"ecommerce",
+		"product-zoom",
+		"image-zoom",
+		"magnify",
+		"lens",
+		"responsive",
+		"touch",
+		"mobile",
+		"amazon",
+		"flipkart",
+		"gallery"
+	],
+	"author": "Enhanced Image Magnifier Team",
+	"license": "MIT",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/yourusername/enhanced-image-magnifier.git"
+	},
+	"bugs": {
+		"url": "https://github.com/yourusername/enhanced-image-magnifier/issues"
+	},
+	"homepage": "https://github.com/yourusername/enhanced-image-magnifier#readme",
+	"files": [
+		"enhanced-magnifier.js",
+		"embla-carousel.js",
+		"README.md",
+		"demo.html",
+		"simple-example.html",
+		"gallery-example.html"
+	],
+	"engines": {
+		"node": ">=12.0.0"
+	},
+	"browserslist": [
+		"> 1%",
+		"last 2 versions",
+		"not dead"
+	]
 }
