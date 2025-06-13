@@ -115,9 +115,9 @@ body {
 	background: rgba(119, 159, 56, 0.9);
 	color: white;
 	border: none;
-	border-radius: 4px;
-	width: 100%;
-	height: 24px;
+	border-radius: 1.5rem;
+	width: 2.5rem;
+	height: 2.5rem;
 	cursor: pointer;
 	font-size: 12px;
 	font-weight: bold;
@@ -219,46 +219,27 @@ body {
 	cursor: pointer;
 	border-radius: 0.25rem;
 	overflow: hidden;
-	transition: all 0.15s ease-out;
-	/* Faster, smoother transitions */
 	border: 2px solid #ccc;
-	/* Gray border instead of green */
 	aspect-ratio: 1;
-	/* Force square aspect ratio */
 	width: 84px;
-	/* Fixed width to ensure consistent sizing */
 	height: 84px;
-	/* Fixed height to match width */
 }
 
 .embla__slide:hover {
 	border-color: #555;
-	/* Darker gray on hover */
-	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-	/* More pronounced shadow */
-	transform: translateY(-1px);
-	/* Slight lift effect */
 }
 
 .embla__slide.is-selected {
 	border-color: #779F38;
-	/* Match arrow color */
-	box-shadow: 0 2px 8px rgba(119, 159, 56, 0.3);
-	/* Match arrow color */
-	background-color: rgba(119, 159, 56, 0.1);
-	/* Light green background */
 }
 
 .embla__slide img {
 	width: 100%;
 	height: 100%;
-	/* Fill the container completely */
 	object-fit: contain;
-	/* Cover to fill square container */
 	display: block;
 }
 
-/* Navigation buttons */
 .embla__buttons {
 	display: flex;
 	flex-direction: column;
@@ -266,7 +247,6 @@ body {
 	margin-top: 12px;
 }
 
-/* Main image navigation arrows */
 .main-nav-buttons {
 	position: relative;
 }
@@ -287,7 +267,7 @@ body {
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
 	transition: all 0.2s ease;
 	font-weight: bold;
 }

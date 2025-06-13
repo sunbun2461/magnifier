@@ -191,27 +191,31 @@
                 slide.className = `embla__slide ${index === 0 ? 'is-selected' : ''}`;
                 slide.innerHTML = `<img src="${item.thumb}" alt="${item.title}">`;
                 
-                // Click functionality - permanently selects the image
-                slide.addEventListener('click', () => {
-                    emblaApi.scrollTo(index);
-                    selectImage(index);
-                });
+                // don't do anything on click
+                // slide.addEventListener('click', () => {
+                //     emblaApi.scrollTo(index);
+                //     selectImage(index);
+                // });
 
                 // Hover functionality - temporary preview only (no selection)
                 slide.addEventListener('mouseenter', () => {
                     if (index !== currentIndex) {
-                        // Temporarily show this image without selecting
-                        const mainImage = document.getElementById('main-image');
-                        mainImage.src = item.small;
-                        mainImage.alt = item.title;
+
+                        //select on hover
+                        selectImage(index)
+
+                        // // Temporarily show this image without selecting
+                        // const mainImage = document.getElementById('main-image');
+                        // mainImage.src = item.small;
+                        // mainImage.alt = item.title;
                         
-                        // Temporarily update info
-                        document.getElementById('product-title').textContent = item.title;
-                        document.getElementById('product-price').textContent = item.price;
-                        document.getElementById('product-description').textContent = item.description;
+                        // // Temporarily update info
+                        // document.getElementById('product-title').textContent = item.title;
+                        // document.getElementById('product-price').textContent = item.price;
+                        // document.getElementById('product-description').textContent = item.description;
                         
                         // Setup magnifier for preview
-                        setupMagnifier(item);
+                        //setupMagnifier(item);
                     }
                 });
 
