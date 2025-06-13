@@ -181,6 +181,7 @@ body {
 }
 
 .embla__container {
+	padding: 0.5rem;
 	display: flex;
 	flex-direction: column;
 	height: 29.25rem;
@@ -218,7 +219,6 @@ body {
 	margin-bottom: 8px;
 	cursor: pointer;
 	border-radius: 0.25rem;
-	overflow: hidden;
 	border: 2px solid #ccc;
 	aspect-ratio: 1;
 	width: 84px;
@@ -231,6 +231,7 @@ body {
 
 .embla__slide.is-selected {
 	border-color: #779F38;
+	box-shadow: 0 0 0 2px #779F38; /* adds a 3px "fake border" */
 }
 
 .embla__slide img {

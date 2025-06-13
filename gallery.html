@@ -219,24 +219,24 @@
                     }
                 });
 
-                // Mouse leave functionality - revert to selected image
-                slide.addEventListener('mouseleave', () => {
-                    if (index !== currentIndex) {
-                        // Revert to the currently selected image
-                        const selectedItem = galleryItems[currentIndex];
-                        const mainImage = document.getElementById('main-image');
-                        mainImage.src = selectedItem.small;
-                        mainImage.alt = selectedItem.title;
+                // // Mouse leave functionality - revert to selected image
+                // slide.addEventListener('mouseleave', () => {
+                //     if (index !== currentIndex) {
+                //         // Revert to the currently selected image
+                //         const selectedItem = galleryItems[currentIndex];
+                //         const mainImage = document.getElementById('main-image');
+                //         mainImage.src = selectedItem.small;
+                //         mainImage.alt = selectedItem.title;
                         
-                        // Revert info
-                        document.getElementById('product-title').textContent = selectedItem.title;
-                        document.getElementById('product-price').textContent = selectedItem.price;
-                        document.getElementById('product-description').textContent = selectedItem.description;
+                //         // Revert info
+                //         document.getElementById('product-title').textContent = selectedItem.title;
+                //         document.getElementById('product-price').textContent = selectedItem.price;
+                //         document.getElementById('product-description').textContent = selectedItem.description;
                         
-                        // Revert magnifier
-                        setupMagnifier(selectedItem);
-                    }
-                });
+                //         // Revert magnifier
+                //         setupMagnifier(selectedItem);
+                //     }
+                // });
 
                 container.appendChild(slide);
             });
@@ -251,7 +251,7 @@
                 containScroll: 'trimSnaps',
                 skipSnaps: false,      // Enable snap points
                 align: 'start',        // Align to top
-                duration: 25,          // Slightly slower for better snap feel
+                duration: 20,          // Slightly slower for better snap feelo
                 dragThreshold: 10,     // Normal threshold for snapping
                 startIndex: 0
             });
