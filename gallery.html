@@ -20,6 +20,7 @@
         <div class="gallery-header">
             <h1>🖼️ Enhanced Gallery</h1>
             <p>Vertical thumbnails with image magnification</p>
+            <p class="gallery-instructions">💡 Hover over thumbnails to select • Use arrows to navigate • Hover on main image to magnify</p>
         </div>
 
         <div class="gallery-layout">
@@ -128,6 +129,7 @@
         let emblaApi;
         let currentMagnifier = null;
         let currentIndex = 0;
+        let hoverTimeout = null; // For managing hover delays
 
         // Initialize gallery
         function init() {
@@ -147,9 +149,24 @@
                 slide.className = `embla__slide ${index === 0 ? 'is-selected' : ''}`;
                 slide.innerHTML = `<img src="${item.thumb}" alt="${item.title}">`;
                 
+                // Click functionality - selects the image permanently
                 slide.addEventListener('click', () => {
                     emblaApi.scrollTo(index);
                     selectImage(index);
+                });
+
+                // Hover functionality - permanently selects the image (same as clicking)
+                slide.addEventListener('mouseenter', () => {
+                    if (index !== currentIndex) {
+                        // Clear any existing timeout
+                        if (hoverTimeout) {
+                            clearTimeout(hoverTimeout);
+                        }
+                        
+                        // Permanently select this image by calling selectImage
+                        emblaApi.scrollTo(index);
+                        selectImage(index);
+                    }
                 });
 
                 container.appendChild(slide);
@@ -192,9 +209,23 @@
 
         // Update button states
         function updateButtons() {
-            // Update main navigation buttons
-            document.getElementById('main-prev').style.opacity = currentIndex > 0 ? '1' : '0.3';
-            document.getElementById('main-next').style.opacity = currentIndex < galleryItems.length - 1 ? '1' : '0.3';
+            // Update main navigation buttons - hide/show instead of opacity
+            const prevButton = document.getElementById('main-prev');
+            const nextButton = document.getElementById('main-next');
+            
+            // Hide left arrow on first item
+            if (currentIndex === 0) {
+                prevButton.style.display = 'none';
+            } else {
+                prevButton.style.display = 'flex';
+            }
+            
+            // Hide right arrow on last item
+            if (currentIndex === galleryItems.length - 1) {
+                nextButton.style.display = 'none';
+            } else {
+                nextButton.style.display = 'flex';
+            }
         }
 
         // Select image

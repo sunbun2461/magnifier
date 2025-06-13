@@ -6,7 +6,7 @@
 
 body {
 	font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-	background: pink;
+	background: white;
 	color: #333;
 	padding-top: 60px;
 	/* Added padding to prevent content from being hidden under the fixed nav */
@@ -62,7 +62,7 @@ body {
 	/* Wider to accommodate the fixed width content */
 	margin: 20px auto;
 	padding: 20px;
-	background: cornflowerblue;
+	background: white;
 	border-radius: 8px;
 	box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
 }
@@ -82,6 +82,13 @@ body {
 	color: #7f8c8d;
 }
 
+.gallery-instructions {
+	font-size: 0.9rem;
+	color: #95a5a6;
+	margin-top: 8px;
+	font-style: italic;
+}
+
 .gallery-layout {
 	display: flex;
 	gap: 20px;
@@ -95,20 +102,22 @@ body {
 	width: 100px;
 	flex-shrink: 0;
 	order: 1;
+	overflow: hidden; /* Prevent any overflow */
 }
 
 /* Main image container */
 .main-image-container {
-	flex: 0 0 35.0625rem;
+	/* flex: 0 0 35.0625rem; */
+	flex: 0 0 29.25rem;
 	height: 29.25rem;
-	background: #80008021;
+	background: white;
 	overflow: visible;
 	order: 2;
 	position: relative;
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	justify-content: space-between;
+	/* justify-content: space-between; */
 }
 
 .main-image {
@@ -133,7 +142,7 @@ body {
 	flex-direction: column;
 	height: 29.25rem;
 	/* Match main image height */
-	overflow-y: auto;
+
 	/* Allow scrolling for thumbnails without buttons */
 	scrollbar-width: thin;
 	/* For Firefox */
@@ -159,16 +168,19 @@ body {
 	flex: 0 0 auto;
 	margin-bottom: 8px;
 	cursor: pointer;
-	border-radius: 4px;
+	border-radius: 0.25rem;
 	overflow: hidden;
 	transition: all 0.2s ease;
-	border: 2px solid transparent;
+	border: 2px solid #ccc; /* Gray border instead of green */
+	aspect-ratio: 1; /* Force square aspect ratio */
+	width: 84px; /* Fixed width to ensure consistent sizing */
+	height: 84px; /* Fixed height to match width */
 }
 
 .embla__slide:hover {
-	transform: scale(1.05);
-	border-color: #779F38;
-	/* Match arrow color */
+	border-color: #555; /* Darker gray on hover */
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); /* More pronounced shadow */
+	transform: translateY(-1px); /* Slight lift effect */
 }
 
 .embla__slide.is-selected {
@@ -182,8 +194,8 @@ body {
 
 .embla__slide img {
 	width: 100%;
-	height: 80px;
-	object-fit: contain;
+	height: 100%; /* Fill the container completely */
+	object-fit: cover; /* Cover to fill square container */
 	display: block;
 }
 
@@ -201,16 +213,18 @@ body {
 }
 
 .main-nav-button {
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%);
 	background: rgba(255, 255, 255, 0.85);
 	color: #779F38;
-	/* Green color as requested */
 	border: none;
 	border-radius: 50%;
 	width: 40px;
 	height: 40px;
 	font-size: 24px;
 	cursor: pointer;
-	z-index: 10;
+	z-index: 999999;
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -224,12 +238,12 @@ body {
 }
 
 .main-nav-button.prev {
-	left: -0.625rem;
+	left: 0;
 	/* Move even closer to the image border */
 }
 
 .main-nav-button.next {
-	right: -0.625rem;
+	right: 0;
 	/* Move even closer to the image border */
 }
 
