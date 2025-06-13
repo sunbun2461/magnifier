@@ -40,17 +40,17 @@
                 <button class="main-nav-button prev" id="main-prev">❮</button>
                 <img id="main-image" 
                      class="main-image" 
-                     src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" 
-                     alt="Premium Watch">
+                     src="[% product_image %]" 
+                     alt="[% product_title %]">
                 <button class="main-nav-button next" id="main-next">❯</button>
             </div>
 
             <!-- Product information -->
             <div class="product-info">
-                <h2 class="product-title" id="product-title">Premium Watch</h2>
-                <div class="product-price" id="product-price">$299.99</div>
+                <h2 class="product-title" id="product-title">[% product_title %]</h2>
+                <div class="product-price" id="product-price">[% product_price %]</div>
                 <div class="product-description" id="product-description">
-                    Elegant timepiece with precision movement and classic design.
+                    [% product_description %]
                 </div>
                 
                 <button class="btn btn-primary">Add to Cart</button>
@@ -58,11 +58,11 @@
                 <div class="features">
                     <h3>Gallery Features:</h3>
                     <ul>
-                        <li>Vertical thumbnails</li>
-                        <li>Image magnification</li>
-                        <li>Smooth transitions</li>
-                        <li>Touch friendly</li>
-                        <li>Responsive design</li>
+                        <li>[% feature_1 %]</li>
+                        <li>[% feature_2 %]</li>
+                        <li>[% feature_3 %]</li>
+                        <li>[% feature_4 %]</li>
+                        <li>[% feature_5 %]</li>
                     </ul>
                 </div>
             </div>
@@ -445,6 +445,25 @@
         }
 
         // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            const item = galleryItems[0];
+            const variables = {
+                product_image: item.small,
+                product_title: item.title,
+                product_price: item.price,
+                product_description: item.description,
+                feature_1: "Vertical thumbnails",
+                feature_2: "Image magnification",
+                feature_3: "Smooth transitions",
+                feature_4: "Touch friendly",
+                feature_5: "Responsive design"
+            };
+            const layout = document.querySelector('.gallery-layout');
+            if (layout) {
+                layout.innerHTML = layout.innerHTML.replace(/\[%\s*(\w+)\s*%\]/g, (match, p1) => variables[p1] || '');
+            }
+        });
+
         document.addEventListener('DOMContentLoaded', init);
         window.addEventListener('resize', handleResize);
     </script>
