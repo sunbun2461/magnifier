@@ -102,7 +102,8 @@ body {
 	width: 100px;
 	flex-shrink: 0;
 	order: 1;
-	overflow: hidden; /* Prevent any overflow */
+	overflow: hidden;
+	/* Prevent any overflow */
 }
 
 /* Main image container */
@@ -171,16 +172,23 @@ body {
 	border-radius: 0.25rem;
 	overflow: hidden;
 	transition: all 0.2s ease;
-	border: 2px solid #ccc; /* Gray border instead of green */
-	aspect-ratio: 1; /* Force square aspect ratio */
-	width: 84px; /* Fixed width to ensure consistent sizing */
-	height: 84px; /* Fixed height to match width */
+	border: 2px solid #ccc;
+	/* Gray border instead of green */
+	aspect-ratio: 1;
+	/* Force square aspect ratio */
+	width: 84px;
+	/* Fixed width to ensure consistent sizing */
+	height: 84px;
+	/* Fixed height to match width */
 }
 
 .embla__slide:hover {
-	border-color: #555; /* Darker gray on hover */
-	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); /* More pronounced shadow */
-	transform: translateY(-1px); /* Slight lift effect */
+	border-color: #555;
+	/* Darker gray on hover */
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+	/* More pronounced shadow */
+	transform: translateY(-1px);
+	/* Slight lift effect */
 }
 
 .embla__slide.is-selected {
@@ -194,8 +202,10 @@ body {
 
 .embla__slide img {
 	width: 100%;
-	height: 100%; /* Fill the container completely */
-	object-fit: cover; /* Cover to fill square container */
+	height: 100%;
+	/* Fill the container completely */
+	object-fit: contain;
+	/* Cover to fill square container */
 	display: block;
 }
 
