@@ -7,6 +7,15 @@
 	<link rel="stylesheet" href="css/gallery.css">
 </head>
 <body>
+    <!-- Navigation Header -->
+    <nav class="main-nav">
+        <ul>
+            <li><a href="demo.html">Demo</a></li>
+            <li><a href="magnifier.html">Magnifier</a></li>
+            <li><a href="gallery.html" class="active">Gallery</a></li>
+        </ul>
+    </nav>
+
     <div class="gallery-container">
         <div class="gallery-header">
             <h1>🖼️ Enhanced Gallery</h1>
@@ -66,6 +75,14 @@
     <script>
         // Lightweight gallery data
         const galleryItems = [
+            {
+                title: "Tall Skyscraper",
+                price: "$1,299.99", 
+                description: "Very tall and skinny skyscraper architectural photo with extreme vertical aspect ratio (1:3).",
+                small: "https://media.discordapp.net/attachments/1344695719780421743/1383084032186908824/image.png?ex=684d80e1&is=684c2f61&hm=c5ec9cf46409246fda93cc9bb6441b11d922009f18830563dfa59c7d4767dcaf&=&format=webp&quality=lossless&width=624&height=1040",
+                large: "https://media.discordapp.net/attachments/1344695719780421743/1383084032186908824/image.png?ex=684d80e1&is=684c2f61&hm=c5ec9cf46409246fda93cc9bb6441b11d922009f18830563dfa59c7d4767dcaf&=&format=webp&quality=lossless&width=624&height=1040",
+                thumb: "https://media.discordapp.net/attachments/1344695719780421743/1383084032186908824/image.png?ex=684d80e1&is=684c2f61&hm=c5ec9cf46409246fda93cc9bb6441b11d922009f18830563dfa59c7d4767dcaf&=&format=webp&quality=lossless&width=624&height=1040"
+            },
             {
                 title: "Classic Gold Watch",
                 price: "$299.99", 
@@ -225,7 +242,12 @@
                 const exactWidth = 29.25 * 16; // 468px
                 const exactHeight = 29.25 * 16; // 468px
                 
-                currentMagnifier = new EnhancedImageMagnifier('#main-image', {
+                // Load the image temporarily to get natural dimensions
+                const tempImg = new Image();
+                tempImg.src = item.small;
+                
+                // Set up magnifier options
+                const magnifierOptions = {
                     largeImage: {
                         src: item.large,
                         width: 1200,
@@ -254,7 +276,15 @@
                         maxWidth: 'none',
                         maxHeight: 'none'
                     }
-                });
+                };
+                
+                // Special handling for the tall skyscraper image
+                if (item.title === "Tall Skyscraper") {
+                    magnifierOptions.zoom = 1.5; // Lower zoom for very tall image
+                    console.log("Applied special handling for tall skyscraper image");
+                }
+                
+                currentMagnifier = new EnhancedImageMagnifier('#main-image', magnifierOptions);
             }
 
             if (mainImage.complete) {

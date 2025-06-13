@@ -17,6 +17,52 @@
             color: #333;
             background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
             min-height: 100vh;
+            padding-top: 60px; /* Account for fixed nav */
+        }
+
+        /* Navigation Header Styles */
+        .main-nav {
+            background: #2c3e50;
+            padding: 0.5rem 0;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .main-nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin: 0;
+            padding: 0;
+        }
+
+        .main-nav li {
+            margin: 0;
+        }
+
+        .main-nav a {
+            color: #ecf0f1;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            transition: all 0.2s ease;
+        }
+
+        .main-nav a:hover {
+            background: #34495e;
+            color: #3498db;
+        }
+
+        .main-nav a.active {
+            background: #3498db;
+            color: white;
         }
 
         .container {
@@ -243,6 +289,27 @@
     </style>
 </head>
 <body>
+    <!-- Navigation Header -->
+    <nav class="main-nav">
+        <ul>
+            <li><a href="demo.html" class="active">Demo</a></li>
+            <li><a href="magnifier.html">Magnifier</a></li>
+            <li><a href="gallery.html">Gallery</a></li>
+        </ul>
+    </nav>
+    
+    <div class="secondary-nav" style="background: #34495e; padding: 0.5rem 0; position: sticky; top: 60px; z-index: 999;">
+        <ul style="list-style: none; display: flex; justify-content: center; gap: 1.5rem; margin: 0; padding: 0;">
+            <li><a href="#features" style="color: #ecf0f1; text-decoration: none; font-size: 0.8rem; padding: 0.3rem 0.8rem; border-radius: 3px; transition: all 0.2s ease;">Features</a></li>
+            <li><a href="#demo1" style="color: #ecf0f1; text-decoration: none; font-size: 0.8rem; padding: 0.3rem 0.8rem; border-radius: 3px; transition: all 0.2s ease;">E-commerce Demo</a></li>
+            <li><a href="#demo2" style="color: #ecf0f1; text-decoration: none; font-size: 0.8rem; padding: 0.3rem 0.8rem; border-radius: 3px; transition: all 0.2s ease;">Overlay Demo</a></li>
+            <li><a href="#demo3" style="color: #ecf0f1; text-decoration: none; font-size: 0.8rem; padding: 0.3rem 0.8rem; border-radius: 3px; transition: all 0.2s ease;">Touch Demo</a></li>
+            <li><a href="#demo4" style="color: #ecf0f1; text-decoration: none; font-size: 0.8rem; padding: 0.3rem 0.8rem; border-radius: 3px; transition: all 0.2s ease;">Portal Demo</a></li>
+            <li><a href="#demo5" style="color: #ecf0f1; text-decoration: none; font-size: 0.8rem; padding: 0.3rem 0.8rem; border-radius: 3px; transition: all 0.2s ease;">Config Demo</a></li>
+            <li><a href="#installation" style="color: #ecf0f1; text-decoration: none; font-size: 0.8rem; padding: 0.3rem 0.8rem; border-radius: 3px; transition: all 0.2s ease;">Installation</a></li>
+        </ul>
+    </div>
+
     <div class="container">
         <!-- Header -->
         <div class="header">
@@ -254,7 +321,7 @@
         </div>
 
         <!-- Features Overview -->
-        <div class="demo-section">
+        <div class="demo-section" id="features">
             <h2>✨ Key Features</h2>
             <div class="feature-list">
                 <div class="feature-item">
@@ -277,7 +344,7 @@
         </div>
 
         <!-- Demo 1: E-commerce Style -->
-        <div class="demo-section">
+        <div class="demo-section" id="demo1">
             <h2>🛒 E-commerce Product Magnifier</h2>
             <p>Classic side-by-side magnification perfect for product pages. Hover over the image to see the magnified view appear alongside.</p>
             
@@ -318,7 +385,7 @@ const magnifier = new EnhancedImageMagnifier('#ecommerce-image', {
         </div>
 
         <!-- Demo 2: In-Place Overlay -->
-        <div class="demo-section">
+        <div class="demo-section" id="demo2">
             <h2>🎯 In-Place Overlay Magnifier</h2>
             <p>Magnification appears directly over the image, perfect for galleries and detailed inspection.</p>
             
@@ -358,7 +425,7 @@ const overlayMagnifier = new EnhancedImageMagnifier('#overlay-image', {
         </div>
 
         <!-- Demo 3: Touch/Mobile Optimized -->
-        <div class="demo-section">
+        <div class="demo-section" id="demo3">
             <h2>📱 Touch-Enabled Magnifier</h2>
             <p>Optimized for mobile devices with touch gestures, long-press activation, and drag-to-zoom functionality.</p>
             
@@ -396,7 +463,7 @@ const touchMagnifier = new EnhancedImageMagnifier('#touch-image', {
         </div>
 
         <!-- Demo 4: Portal Rendering -->
-        <div class="demo-section">
+        <div class="demo-section" id="demo4">
             <h2>🚪 Portal Rendering Demo</h2>
             <p>Magnified view renders in a separate container (see top-right corner when hovering).</p>
             
@@ -433,7 +500,7 @@ const portalMagnifier = new EnhancedImageMagnifier('#portal-image', {
         </div>
 
         <!-- Demo 5: Advanced Configuration -->
-        <div class="demo-section">
+        <div class="demo-section" id="demo5">
             <h2>⚙️ Interactive Configuration Demo</h2>
             <p>Try different settings in real-time to see how they affect the magnifier behavior.</p>
             
@@ -497,7 +564,7 @@ const portalMagnifier = new EnhancedImageMagnifier('#portal-image', {
         </div>
 
         <!-- Installation & Usage -->
-        <div class="demo-section">
+        <div class="demo-section" id="installation">
             <h2>🚀 Installation & Usage</h2>
             <p>Get started with the Enhanced Image Magnifier in just a few steps:</p>
             

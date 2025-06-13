@@ -6,8 +6,55 @@
 
 body {
 	font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-	background: #f8f9fa;
+	background: pink;
 	color: #333;
+	padding-top: 60px;
+	/* Added padding to prevent content from being hidden under the fixed nav */
+}
+
+/* Navigation Header Styles */
+.main-nav {
+	background: #2c3e50;
+	padding: 0.5rem 0;
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	z-index: 1000;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.main-nav ul {
+	list-style: none;
+	display: flex;
+	justify-content: center;
+	gap: 2rem;
+	margin: 0;
+	padding: 0;
+}
+
+.main-nav li {
+	margin: 0;
+}
+
+.main-nav a {
+	color: #ecf0f1;
+	text-decoration: none;
+	font-size: 0.9rem;
+	font-weight: 500;
+	padding: 0.5rem 1rem;
+	border-radius: 4px;
+	transition: all 0.2s ease;
+}
+
+.main-nav a:hover {
+	background: #34495e;
+	color: #3498db;
+}
+
+.main-nav a.active {
+	background: #3498db;
+	color: white;
 }
 
 .gallery-container {
@@ -15,7 +62,7 @@ body {
 	/* Wider to accommodate the fixed width content */
 	margin: 20px auto;
 	padding: 20px;
-	background: white;
+	background: cornflowerblue;
 	border-radius: 8px;
 	box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
 }
@@ -52,18 +99,16 @@ body {
 
 /* Main image container */
 .main-image-container {
-	flex: 0 0 38.0625rem;
-	/* Fixed width as requested */
+	flex: 0 0 35.0625rem;
 	height: 29.25rem;
-	/* Fixed height as requested */
-	background: #fff;
+	background: #80008021;
 	overflow: visible;
-	/* Allow for outside arrows */
 	order: 2;
 	position: relative;
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	justify-content: space-between;
 }
 
 .main-image {
@@ -138,7 +183,7 @@ body {
 .embla__slide img {
 	width: 100%;
 	height: 80px;
-	object-fit: cover;
+	object-fit: contain;
 	display: block;
 }
 
@@ -156,9 +201,6 @@ body {
 }
 
 .main-nav-button {
-	position: absolute;
-	top: 50%;
-	transform: translateY(-50%);
 	background: rgba(255, 255, 255, 0.85);
 	color: #779F38;
 	/* Green color as requested */
