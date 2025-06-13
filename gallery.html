@@ -195,7 +195,7 @@
                     selectImage(index);
                 });
 
-                // Hover functionality - permanently selects the image (same as clicking)
+                // Hover functionality - permanently selects the image without scrolling thumbnails
                 slide.addEventListener('mouseenter', () => {
                     if (index !== currentIndex) {
                         // Clear any existing timeout
@@ -203,8 +203,7 @@
                             clearTimeout(hoverTimeout);
                         }
                         
-                        // Permanently select this image by calling selectImage
-                        emblaApi.scrollTo(index);
+                        // Permanently select this image by calling selectImage (without scrolling thumbnails)
                         selectImage(index);
                     }
                 });
