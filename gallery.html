@@ -263,12 +263,6 @@
                 }
             });
 
-            emblaApi.on('select', () => {
-                const index = emblaApi.selectedScrollSnap();
-                selectImage(index);
-                updateButtons();
-            });
-
             updateButtons();
         }
 
@@ -312,6 +306,7 @@
 
             updateInfo(item);
             setupMagnifier(item);
+            updateButtons(); // Always update button states when selecting
         }
 
         // Update product info
