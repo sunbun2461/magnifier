@@ -20,7 +20,7 @@
         <div class="gallery-header">
             <h1>🖼️ Enhanced Gallery</h1>
             <p>Vertical thumbnails with image magnification</p>
-            <p class="gallery-instructions">💡 Hover over thumbnails to select • Use arrows to navigate • Hover on main image to magnify</p>
+            <p class="gallery-instructions">💡 Hover over thumbnails to select • Scroll wheel on thumbnails to navigate • Use arrows to navigate • Hover on main image to magnify</p>
         </div>
 
         <div class="gallery-layout">
@@ -179,6 +179,32 @@
             emblaApi = EmblaCarousel(embla, {
                 axis: 'y',
                 dragFree: false
+            });
+
+            // Add wheel scroll functionality to thumbnail area
+            const thumbnailSlider = document.querySelector('.thumbnail-slider');
+            thumbnailSlider.addEventListener('wheel', (e) => {
+                e.preventDefault(); // Prevent default page scroll
+                
+                // Determine scroll direction
+                const delta = e.deltaY;
+                const scrollThreshold = 50; // Minimum scroll amount to trigger navigation
+                
+                if (Math.abs(delta) > scrollThreshold) {
+                    if (delta > 0) {
+                        // Scroll down - go to next image
+                        if (currentIndex < galleryItems.length - 1) {
+                            emblaApi.scrollTo(currentIndex + 1);
+                            selectImage(currentIndex + 1);
+                        }
+                    } else {
+                        // Scroll up - go to previous image
+                        if (currentIndex > 0) {
+                            emblaApi.scrollTo(currentIndex - 1);
+                            selectImage(currentIndex - 1);
+                        }
+                    }
+                }
             });
 
             // No thumbnail navigation buttons anymore
