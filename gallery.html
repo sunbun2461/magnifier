@@ -20,17 +20,19 @@
         <div class="gallery-header">
             <h1>🖼️ Enhanced Gallery</h1>
             <p>Vertical thumbnails with image magnification</p>
-            <p class="gallery-instructions">💡 Hover over thumbnails to select • Scroll wheel on thumbnails to navigate • Use arrows to navigate • Hover on main image to magnify</p>
+            <p class="gallery-instructions">💡 Hover over thumbnails to preview • Click thumbnails to select • Use arrows to navigate • Hover on main image to magnify</p>
         </div>
 
         <div class="gallery-layout">
             <!-- Vertical thumbnail slider - now on the left -->
             <div class="thumbnail-slider">
+                <button class="thumbnail-nav-button thumbnail-nav-up" id="thumbnail-up">▲</button>
                 <div class="embla">
                     <div class="embla__container" id="embla-container">
                         <!-- Thumbnails populated by JS -->
                     </div>
                 </div>
+                <button class="thumbnail-nav-button thumbnail-nav-down" id="thumbnail-down">▼</button>
             </div>
 
             <!-- Main image display with side navigation -->
@@ -189,22 +191,46 @@
                 slide.className = `embla__slide ${index === 0 ? 'is-selected' : ''}`;
                 slide.innerHTML = `<img src="${item.thumb}" alt="${item.title}">`;
                 
-                // Click functionality - selects the image permanently
+                // Click functionality - permanently selects the image
                 slide.addEventListener('click', () => {
                     emblaApi.scrollTo(index);
                     selectImage(index);
                 });
 
-                // Hover functionality - permanently selects the image without scrolling thumbnails
+                // Hover functionality - temporary preview only (no selection)
                 slide.addEventListener('mouseenter', () => {
                     if (index !== currentIndex) {
-                        // Clear any existing timeout
-                        if (hoverTimeout) {
-                            clearTimeout(hoverTimeout);
-                        }
+                        // Temporarily show this image without selecting
+                        const mainImage = document.getElementById('main-image');
+                        mainImage.src = item.small;
+                        mainImage.alt = item.title;
                         
-                        // Permanently select this image by calling selectImage (without scrolling thumbnails)
-                        selectImage(index);
+                        // Temporarily update info
+                        document.getElementById('product-title').textContent = item.title;
+                        document.getElementById('product-price').textContent = item.price;
+                        document.getElementById('product-description').textContent = item.description;
+                        
+                        // Setup magnifier for preview
+                        setupMagnifier(item);
+                    }
+                });
+
+                // Mouse leave functionality - revert to selected image
+                slide.addEventListener('mouseleave', () => {
+                    if (index !== currentIndex) {
+                        // Revert to the currently selected image
+                        const selectedItem = galleryItems[currentIndex];
+                        const mainImage = document.getElementById('main-image');
+                        mainImage.src = selectedItem.small;
+                        mainImage.alt = selectedItem.title;
+                        
+                        // Revert info
+                        document.getElementById('product-title').textContent = selectedItem.title;
+                        document.getElementById('product-price').textContent = selectedItem.price;
+                        document.getElementById('product-description').textContent = selectedItem.description;
+                        
+                        // Revert magnifier
+                        setupMagnifier(selectedItem);
                     }
                 });
 
@@ -217,36 +243,43 @@
             const embla = document.querySelector('.embla');
             emblaApi = EmblaCarousel(embla, {
                 axis: 'y',
-                dragFree: false
+                dragFree: false,       // Back to snap behavior
+                containScroll: 'trimSnaps',
+                skipSnaps: false,      // Enable snap points
+                align: 'start',        // Align to top
+                duration: 25,          // Slightly slower for better snap feel
+                dragThreshold: 10,     // Normal threshold for snapping
+                startIndex: 0
             });
 
-            // Add wheel scroll functionality to thumbnail area
-            const thumbnailSlider = document.querySelector('.thumbnail-slider');
-            thumbnailSlider.addEventListener('wheel', (e) => {
-                e.preventDefault(); // Prevent default page scroll
-                
-                // Determine scroll direction
-                const delta = e.deltaY;
-                const scrollThreshold = 50; // Minimum scroll amount to trigger navigation
-                
-                if (Math.abs(delta) > scrollThreshold) {
-                    if (delta > 0) {
-                        // Scroll down - go to next image
-                        if (currentIndex < galleryItems.length - 1) {
-                            emblaApi.scrollTo(currentIndex + 1);
-                            selectImage(currentIndex + 1);
-                        }
-                    } else {
-                        // Scroll up - go to previous image
-                        if (currentIndex > 0) {
-                            emblaApi.scrollTo(currentIndex - 1);
-                            selectImage(currentIndex - 1);
-                        }
-                    }
-                }
+            // Add thumbnail navigation buttons
+            document.getElementById('thumbnail-up').addEventListener('click', () => {
+                emblaApi.scrollPrev();
+            });
+            
+            document.getElementById('thumbnail-down').addEventListener('click', () => {
+                emblaApi.scrollNext();
             });
 
-            // No thumbnail navigation buttons anymore
+            // Update thumbnail button states
+            const updateThumbnailButtons = () => {
+                const upButton = document.getElementById('thumbnail-up');
+                const downButton = document.getElementById('thumbnail-down');
+                
+                upButton.disabled = !emblaApi.canScrollPrev();
+                downButton.disabled = !emblaApi.canScrollNext();
+            };
+
+            // Listen for embla events to update button states
+            emblaApi.on('select', updateThumbnailButtons);
+            emblaApi.on('init', updateThumbnailButtons);
+            
+            // Initial button state
+            updateThumbnailButtons();
+
+            // No wheel scroll anymore - using snap navigation
+            
+            // Main image side navigation
             
             // Main image side navigation
             document.getElementById('main-prev').addEventListener('click', () => {
