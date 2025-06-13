@@ -7,7 +7,7 @@
 	left: 0;
 	right: 0;
 	z-index: 1000;
-	box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .main-nav ul {
@@ -86,7 +86,8 @@ body {
 	max-width: 400px;
 	height: auto;
 	cursor: crosshair;
-	object-fit: cover; /* Universal solution for all images */
+	object-fit: cover;
+	/* Universal solution for all images */
 }
 
 /* Different aspect ratio containers */
@@ -194,23 +195,25 @@ h2 {
 
 /* Add responsive media queries for aspect ratios on smaller screens */
 @media (max-width: 768px) {
-    .ratio-21-9 .product-image {
-        aspect-ratio: 16/9; /* Less extreme on smaller screens */
-        max-height: 220px;
-    }
-    
-    .product-image img {
-        max-width: 100%;
-    }
+	.ratio-21-9 .product-image {
+		aspect-ratio: 16/9;
+		/* Less extreme on smaller screens */
+		max-height: 220px;
+	}
+
+	.product-image img {
+		max-width: 100%;
+	}
 }
 
 @media (max-width: 480px) {
-    .ratio-21-9 .product-image {
-        aspect-ratio: 3/2; /* Even less extreme on mobile */
-        max-height: 200px;
-    }
-    
-    .product-section {
-        flex-direction: column;
-    }
+	.ratio-21-9 .product-image {
+		aspect-ratio: 3/2;
+		/* Even less extreme on mobile */
+		max-height: 200px;
+	}
+
+	.product-section {
+		flex-direction: column;
+	}
 }

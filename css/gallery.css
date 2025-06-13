@@ -107,6 +107,7 @@ body {
 	position: relative;
 	display: flex;
 	flex-direction: column;
+	align-items: center;
 }
 
 /* Thumbnail navigation buttons */
@@ -184,8 +185,10 @@ body {
 	flex-direction: column;
 	height: 29.25rem;
 	/* Match main image height */
-	align-items: flex-start; /* Ensure items align to start/top */
-	justify-content: flex-start; /* Start from top */
+	align-items: flex-start;
+	/* Ensure items align to start/top */
+	justify-content: flex-start;
+	/* Start from top */
 
 	/* Smoother scrolling support */
 	scrollbar-width: thin;
@@ -216,7 +219,8 @@ body {
 	cursor: pointer;
 	border-radius: 0.25rem;
 	overflow: hidden;
-	transition: all 0.15s ease-out; /* Faster, smoother transitions */
+	transition: all 0.15s ease-out;
+	/* Faster, smoother transitions */
 	border: 2px solid #ccc;
 	/* Gray border instead of green */
 	aspect-ratio: 1;
