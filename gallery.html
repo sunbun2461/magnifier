@@ -82,9 +82,9 @@
                 title: "Tall Skyscraper",
                 price: "$1,299.99", 
                 description: "Very tall and skinny skyscraper architectural photo with extreme vertical aspect ratio (1:3).",
-                small: "https://media.discordapp.net/attachments/1344695719780421743/1383084032186908824/image.png?ex=684d80e1&is=684c2f61&hm=c5ec9cf46409246fda93cc9bb6441b11d922009f18830563dfa59c7d4767dcaf&=&format=webp&quality=lossless&width=624&height=1040",
-                large: "https://media.discordapp.net/attachments/1344695719780421743/1383084032186908824/image.png?ex=684d80e1&is=684c2f61&hm=c5ec9cf46409246fda93cc9bb6441b11d922009f18830563dfa59c7d4767dcaf&=&format=webp&quality=lossless&width=624&height=1040",
-                thumb: "https://media.discordapp.net/attachments/1344695719780421743/1383084032186908824/image.png?ex=684d80e1&is=684c2f61&hm=c5ec9cf46409246fda93cc9bb6441b11d922009f18830563dfa59c7d4767dcaf&=&format=webp&quality=lossless&width=624&height=1040"
+                small: "https://i5.walmartimages.com/seo/Step-Ladder-4-Step-Folding-Decorative-Modern-Beautiful-Grey-Aluminum-Ultra-Slim-Profile-Anti-Slip-Steps-Sturdy-Portable-Home-Office-Kitchen-Photograp_1ebce83c-6540-499d-979b-b7c2adb44a45.58c72aa13dc4cee0ea60847ad04078ff.jpeg",
+                large: "https://i5.walmartimages.com/seo/Step-Ladder-4-Step-Folding-Decorative-Modern-Beautiful-Grey-Aluminum-Ultra-Slim-Profile-Anti-Slip-Steps-Sturdy-Portable-Home-Office-Kitchen-Photograp_1ebce83c-6540-499d-979b-b7c2adb44a45.58c72aa13dc4cee0ea60847ad04078ff.jpeg",
+                thumb: "https://i5.walmartimages.com/seo/Step-Ladder-4-Step-Folding-Decorative-Modern-Beautiful-Grey-Aluminum-Ultra-Slim-Profile-Anti-Slip-Steps-Sturdy-Portable-Home-Office-Kitchen-Photograp_1ebce83c-6540-499d-979b-b7c2adb44a45.58c72aa13dc4cee0ea60847ad04078ff.jpeg"
             },
             {
                 title: "Classic Gold Watch",
@@ -171,7 +171,7 @@
         let emblaApi;
         let currentMagnifier = null;
         let currentIndex = 0;
-        let hoverTimeout = null; // For managing hover delays
+        let hoverTimeout = null;
 
         // Initialize gallery
         function init() {
@@ -190,54 +190,12 @@
                 const slide = document.createElement('div');
                 slide.className = `embla__slide ${index === 0 ? 'is-selected' : ''}`;
                 slide.innerHTML = `<img src="${item.thumb}" alt="${item.title}">`;
-                
-                // don't do anything on click
-                // slide.addEventListener('click', () => {
-                //     emblaApi.scrollTo(index);
-                //     selectImage(index);
-                // });
-
-                // Hover functionality - temporary preview only (no selection)
+                // Hover functionality - select on hover
                 slide.addEventListener('mouseenter', () => {
                     if (index !== currentIndex) {
-
-                        //select on hover
                         selectImage(index)
-
-                        // // Temporarily show this image without selecting
-                        // const mainImage = document.getElementById('main-image');
-                        // mainImage.src = item.small;
-                        // mainImage.alt = item.title;
-                        
-                        // // Temporarily update info
-                        // document.getElementById('product-title').textContent = item.title;
-                        // document.getElementById('product-price').textContent = item.price;
-                        // document.getElementById('product-description').textContent = item.description;
-                        
-                        // Setup magnifier for preview
-                        //setupMagnifier(item);
                     }
                 });
-
-                // // Mouse leave functionality - revert to selected image
-                // slide.addEventListener('mouseleave', () => {
-                //     if (index !== currentIndex) {
-                //         // Revert to the currently selected image
-                //         const selectedItem = galleryItems[currentIndex];
-                //         const mainImage = document.getElementById('main-image');
-                //         mainImage.src = selectedItem.small;
-                //         mainImage.alt = selectedItem.title;
-                        
-                //         // Revert info
-                //         document.getElementById('product-title').textContent = selectedItem.title;
-                //         document.getElementById('product-price').textContent = selectedItem.price;
-                //         document.getElementById('product-description').textContent = selectedItem.description;
-                        
-                //         // Revert magnifier
-                //         setupMagnifier(selectedItem);
-                //     }
-                // });
-
                 container.appendChild(slide);
             });
         }
@@ -247,92 +205,70 @@
             const embla = document.querySelector('.embla');
             emblaApi = EmblaCarousel(embla, {
                 axis: 'y',
-                dragFree: false,       // Back to snap behavior
+                dragFree: false,
                 containScroll: 'trimSnaps',
-                skipSnaps: false,      // Enable snap points
-                align: 'start',        // Align to top
-                duration: 20,          // Slightly slower for better snap feelo
-                dragThreshold: 10,     // Normal threshold for snapping
+                skipSnaps: false,
+                align: 'start',
+                duration: 20,
+                dragThreshold: 10,
                 startIndex: 0
             });
 
-            // Add thumbnail navigation buttons
             document.getElementById('thumbnail-up').addEventListener('click', () => {
                 emblaApi.scrollPrev();
             });
-            
             document.getElementById('thumbnail-down').addEventListener('click', () => {
                 emblaApi.scrollNext();
             });
 
-            // Update thumbnail button states
             const updateThumbnailButtons = () => {
                 const upButton = document.getElementById('thumbnail-up');
                 const downButton = document.getElementById('thumbnail-down');
-                
                 upButton.disabled = !emblaApi.canScrollPrev();
                 downButton.disabled = !emblaApi.canScrollNext();
             };
-
-            // Listen for embla events to update button states
             emblaApi.on('select', updateThumbnailButtons);
             emblaApi.on('init', updateThumbnailButtons);
-            
-            // Initial button state
             updateThumbnailButtons();
 
-            // Add mousewheel scrolling support
             const emblaNode = document.querySelector('.embla');
             emblaNode.addEventListener('wheel', (event) => {
-                // Prevent the default scrolling behavior
                 event.preventDefault();
-                
-                // Determine scroll direction
                 if (event.deltaY > 0) {
-                    // Scrolling down
                     if (emblaApi.canScrollNext()) {
                         emblaApi.scrollNext();
                     }
                 } else {
-                    // Scrolling up
                     if (emblaApi.canScrollPrev()) {
                         emblaApi.scrollPrev();
                     }
                 }
             }, { passive: false });
-            
-            // Main image side navigation
+
             document.getElementById('main-prev').addEventListener('click', () => {
                 if (currentIndex > 0) {
                     emblaApi.scrollTo(currentIndex - 1);
                     selectImage(currentIndex - 1);
                 }
             });
-            
             document.getElementById('main-next').addEventListener('click', () => {
                 if (currentIndex < galleryItems.length - 1) {
                     emblaApi.scrollTo(currentIndex + 1);
                     selectImage(currentIndex + 1);
                 }
             });
-
             updateButtons();
         }
 
         // Update button states
         function updateButtons() {
-            // Update main navigation buttons - hide/show instead of opacity
             const prevButton = document.getElementById('main-prev');
             const nextButton = document.getElementById('main-next');
-            
-            // Hide left arrow on first item
             if (currentIndex === 0) {
                 prevButton.style.display = 'none';
             } else {
                 prevButton.style.display = 'flex';
             }
-            
-            // Hide right arrow on last item
             if (currentIndex === galleryItems.length - 1) {
                 nextButton.style.display = 'none';
             } else {
@@ -343,23 +279,17 @@
         // Select image
         function selectImage(index) {
             if (index === currentIndex) return;
-            
             currentIndex = index;
             const item = galleryItems[index];
-
-            // Update main image
             const mainImage = document.getElementById('main-image');
             mainImage.src = item.small;
             mainImage.alt = item.title;
-
-            // Update thumbnail selection
             document.querySelectorAll('.embla__slide').forEach((slide, i) => {
                 slide.classList.toggle('is-selected', i === index);
             });
-
             updateInfo(item);
             setupMagnifier(item);
-            updateButtons(); // Always update button states when selecting
+            updateButtons();
         }
 
         // Update product info
@@ -374,23 +304,14 @@
             if (currentMagnifier) {
                 try {
                     EnhancedImageMagnifier.cleanup();
-                } catch (e) {
-                    // Cleanup handled
-                }
+                } catch (e) {}
             }
-
             const mainImage = document.getElementById('main-image');
-            
             function initMagnifier() {
-                // Fixed dimensions in pixels (29.25rem = 468px)
-                const exactWidth = 29.25 * 16; // 468px
-                const exactHeight = 29.25 * 16; // 468px
-                
-                // Load the image temporarily to get natural dimensions
+                const exactWidth = 29.25 * 16;
+                const exactHeight = 29.25 * 16;
                 const tempImg = new Image();
                 tempImg.src = item.small;
-                
-                // Set up magnifier options
                 const magnifierOptions = {
                     largeImage: {
                         src: item.large,
@@ -403,16 +324,14 @@
                     width: exactWidth,
                     height: exactHeight,
                     zoom: 2,
-                    hoverDelayInMs: 0, // Immediate activation
+                    hoverDelayInMs: 0,
                     fadeDurationInMs: 325,
-                    // Fixed styling to prevent height issues
                     enlargedImageContainerStyle: {
                         width: exactWidth + 'px',
                         height: exactHeight + 'px',
                         maxHeight: exactHeight + 'px',
-                        overflow: 'hidden' // Prevent magnified image from overflowing
+                        overflow: 'hidden'
                     },
-                    // Control the magnified image position
                     enlargedImageStyle: {
                         objectFit: 'contain',
                         width: 'auto',
@@ -421,16 +340,11 @@
                         maxHeight: 'none'
                     }
                 };
-                
-                // Special handling for the tall skyscraper image
                 if (item.title === "Tall Skyscraper") {
-                    magnifierOptions.zoom = 1.5; // Lower zoom for very tall image
-                    console.log("Applied special handling for tall skyscraper image");
+                    magnifierOptions.zoom = 1.5;
                 }
-                
                 currentMagnifier = new EnhancedImageMagnifier('#main-image', magnifierOptions);
             }
-
             if (mainImage.complete) {
                 initMagnifier();
             } else {
