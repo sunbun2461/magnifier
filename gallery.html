@@ -31,10 +31,8 @@
                         <path d="M8.21313 17.8503C7.58813 17.1992 7.58813 16.1419 8.21313 15.4909L17.8131 5.49088C18.4381 4.83984 19.4531 4.83984 20.0781 5.49088C20.7031 6.14192 20.7031 7.19922 20.0781 7.85026L11.6081 16.6732L20.0731 25.4961C20.6981 26.1471 20.6981 27.2044 20.0731 27.8555C19.4481 28.5065 18.4331 28.5065 17.8081 27.8555L8.20812 17.8555L8.21313 17.8503Z" fill="currentColor"/>
                     </svg>
                 </button>
-                <div class="embla">
-                    <div class="embla__container" id="embla-container">
-                        <!-- Thumbnails populated by JS -->
-                    </div>
+                <div class="thumbnail-container" id="thumbnail-container">
+                    <!-- Thumbnails populated by JS -->
                 </div>
                 <button class="chevron-button thumbnail-nav-button thumbnail-nav-down" id="thumbnail-down">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 32 33" fill="none">
@@ -215,7 +213,7 @@
             
             createThumbnails();
             createDots();
-            setupEmbla();
+            setupThumbnailScrolling();
             
             // Setup magnifier only on desktop
             if (!isMobile()) {
@@ -228,12 +226,12 @@
 
         // Create thumbnail slides
         function createThumbnails() {
-            const container = document.getElementById('embla-container');
+            const container = document.getElementById('thumbnail-container');
             container.innerHTML = '';
 
             galleryItems.forEach((item, index) => {
                 const slide = document.createElement('div');
-                slide.className = `embla__slide ${index === 0 ? 'is-selected' : ''}`;
+                slide.className = `thumbnail-slide ${index === 0 ? 'is-selected' : ''}`;
                 slide.innerHTML = `<img src="${item.thumb}" alt="${item.title}">`;
                 
                 // Click functionality for both mobile and desktop
@@ -273,76 +271,37 @@
             });
         }
 
-        // Setup Embla
-        function setupEmbla() {
-            const embla = document.querySelector('.embla');
-            emblaApi = EmblaCarousel(embla, {
-                axis: 'y',
-                dragFree: false,       // Back to snap behavior
-                containScroll: 'trimSnaps',
-                skipSnaps: false,      // Enable snap points
-                align: 'start',        // Align to top
-                duration: 20,          // Slightly slower for better snap feelo
-                dragThreshold: 10,     // Normal threshold for snapping
-                startIndex: 0
-            });
-
+        // Setup thumbnail scrolling
+        function setupThumbnailScrolling() {
+            const container = document.getElementById('thumbnail-container');
+            
             // Add thumbnail navigation buttons
             document.getElementById('thumbnail-up').addEventListener('click', () => {
-                emblaApi.scrollPrev();
+                container.scrollBy({ top: -100, behavior: 'smooth' });
             });
             
             document.getElementById('thumbnail-down').addEventListener('click', () => {
-                emblaApi.scrollNext();
+                container.scrollBy({ top: 100, behavior: 'smooth' });
             });
 
-            // Update thumbnail button states
-            const updateThumbnailButtons = () => {
-                const upButton = document.getElementById('thumbnail-up');
-                const downButton = document.getElementById('thumbnail-down');
-                
-                upButton.disabled = !emblaApi.canScrollPrev();
-                downButton.disabled = !emblaApi.canScrollNext();
-            };
-
-            // Listen for embla events to update button states
-            emblaApi.on('select', updateThumbnailButtons);
-            emblaApi.on('init', updateThumbnailButtons);
-            
-            // Initial button state
-            updateThumbnailButtons();
-
             // Add mousewheel scrolling support
-            const emblaNode = document.querySelector('.embla');
-            emblaNode.addEventListener('wheel', (event) => {
+            container.addEventListener('wheel', (event) => {
                 // Prevent the default scrolling behavior
                 event.preventDefault();
                 
-                // Determine scroll direction
-                if (event.deltaY > 0) {
-                    // Scrolling down
-                    if (emblaApi.canScrollNext()) {
-                        emblaApi.scrollNext();
-                    }
-                } else {
-                    // Scrolling up
-                    if (emblaApi.canScrollPrev()) {
-                        emblaApi.scrollPrev();
-                    }
-                }
+                // Scroll the container
+                container.scrollBy({ top: event.deltaY, behavior: 'smooth' });
             }, { passive: false });
             
             // Main image side navigation
             document.getElementById('main-prev').addEventListener('click', () => {
                 if (currentIndex > 0) {
-                    emblaApi.scrollTo(currentIndex - 1);
                     selectImage(currentIndex - 1);
                 }
             });
             
             document.getElementById('main-next').addEventListener('click', () => {
                 if (currentIndex < galleryItems.length - 1) {
-                    emblaApi.scrollTo(currentIndex + 1);
                     selectImage(currentIndex + 1);
                 }
             });
@@ -384,7 +343,7 @@
             mainImage.alt = item.title;
 
             // Update thumbnail selection
-            document.querySelectorAll('.embla__slide').forEach((slide, i) => {
+            document.querySelectorAll('.thumbnail-slide').forEach((slide, i) => {
                 slide.classList.toggle('is-selected', i === index);
             });
 
@@ -487,8 +446,6 @@
 
         // Handle resize
         function handleResize() {
-            if (emblaApi) emblaApi.reInit();
-            
             // Recreate dots if needed
             createDots();
             
