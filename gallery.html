@@ -45,6 +45,11 @@
                 <button class="main-nav-button next" id="main-next">❯</button>
             </div>
 
+            <!-- Pagination dots for mobile -->
+            <div class="embla__dots" id="embla-dots">
+                <!-- Dots will be populated by JavaScript -->
+            </div>
+
             <!-- Product information -->
             <div class="product-info">
                 <h2 class="product-title" id="product-title">Premium Watch</h2>
@@ -173,12 +178,36 @@
         let currentIndex = 0;
         let hoverTimeout = null; // For managing hover delays
 
+        // Utility: detect mobile
+        function isMobile() {
+            return window.matchMedia && window.matchMedia('(max-width: 1024px)').matches;
+        }
+
         // Initialize gallery
         function init() {
+            console.log('Initializing gallery with first item:', galleryItems[0]);
+            
+            // Set initial image and info
+            const firstItem = galleryItems[0];
+            const mainImage = document.getElementById('main-image');
+            mainImage.src = firstItem.small;
+            mainImage.alt = firstItem.title;
+            
+            // Initialize current index
+            currentIndex = 0;
+            console.log('Set currentIndex to:', currentIndex);
+            
             createThumbnails();
+            createDots();
             setupEmbla();
-            setupMagnifier(galleryItems[0]);
-            updateInfo(galleryItems[0]);
+            
+            // Setup magnifier only on desktop
+            if (!isMobile()) {
+                setupMagnifier(firstItem);
+            }
+            
+            updateInfo(firstItem);
+            console.log('Gallery initialization complete');
         }
 
         // Create thumbnail slides
@@ -191,54 +220,40 @@
                 slide.className = `embla__slide ${index === 0 ? 'is-selected' : ''}`;
                 slide.innerHTML = `<img src="${item.thumb}" alt="${item.title}">`;
                 
-                // don't do anything on click
-                // slide.addEventListener('click', () => {
-                //     emblaApi.scrollTo(index);
-                //     selectImage(index);
-                // });
-
-                // Hover functionality - temporary preview only (no selection)
-                slide.addEventListener('mouseenter', () => {
-                    if (index !== currentIndex) {
-
-                        //select on hover
-                        selectImage(index)
-
-                        // // Temporarily show this image without selecting
-                        // const mainImage = document.getElementById('main-image');
-                        // mainImage.src = item.small;
-                        // mainImage.alt = item.title;
-                        
-                        // // Temporarily update info
-                        // document.getElementById('product-title').textContent = item.title;
-                        // document.getElementById('product-price').textContent = item.price;
-                        // document.getElementById('product-description').textContent = item.description;
-                        
-                        // Setup magnifier for preview
-                        //setupMagnifier(item);
-                    }
+                // Click functionality for both mobile and desktop
+                slide.addEventListener('click', () => {
+                    selectImage(index);
                 });
 
-                // // Mouse leave functionality - revert to selected image
-                // slide.addEventListener('mouseleave', () => {
-                //     if (index !== currentIndex) {
-                //         // Revert to the currently selected image
-                //         const selectedItem = galleryItems[currentIndex];
-                //         const mainImage = document.getElementById('main-image');
-                //         mainImage.src = selectedItem.small;
-                //         mainImage.alt = selectedItem.title;
-                        
-                //         // Revert info
-                //         document.getElementById('product-title').textContent = selectedItem.title;
-                //         document.getElementById('product-price').textContent = selectedItem.price;
-                //         document.getElementById('product-description').textContent = selectedItem.description;
-                        
-                //         // Revert magnifier
-                //         setupMagnifier(selectedItem);
-                //     }
-                // });
+                // Hover functionality - only on desktop (non-mobile devices)
+                if (!isMobile()) {
+                    slide.addEventListener('mouseenter', () => {
+                        if (index !== currentIndex) {
+                            // Select on hover for desktop only
+                            selectImage(index);
+                        }
+                    });
+                }
 
                 container.appendChild(slide);
+            });
+        }
+
+        // Create pagination dots for mobile
+        function createDots() {
+            const dotsContainer = document.getElementById('embla-dots');
+            dotsContainer.innerHTML = '';
+
+            galleryItems.forEach((item, index) => {
+                const dot = document.createElement('button');
+                dot.className = `embla__dot ${index === 0 ? 'is-selected' : ''}`;
+                dot.setAttribute('aria-label', `Go to slide ${index + 1}`);
+                
+                dot.addEventListener('click', () => {
+                    selectImage(index);
+                });
+
+                dotsContainer.appendChild(dot);
             });
         }
 
@@ -357,8 +372,18 @@
                 slide.classList.toggle('is-selected', i === index);
             });
 
+            // Update dots selection
+            document.querySelectorAll('.embla__dot').forEach((dot, i) => {
+                dot.classList.toggle('is-selected', i === index);
+            });
+
             updateInfo(item);
-            setupMagnifier(item);
+            
+            // Setup magnifier only on desktop
+            if (!isMobile()) {
+                setupMagnifier(item);
+            }
+            
             updateButtons(); // Always update button states when selecting
         }
 
@@ -371,6 +396,12 @@
 
         // Setup magnifier
         function setupMagnifier(item) {
+            // Skip magnifier setup on mobile devices
+            if (isMobile()) {
+                console.log("Magnifier disabled on mobile");
+                return;
+            }
+            
             if (currentMagnifier) {
                 try {
                     EnhancedImageMagnifier.cleanup();
@@ -441,7 +472,14 @@
         // Handle resize
         function handleResize() {
             if (emblaApi) emblaApi.reInit();
-            setTimeout(() => setupMagnifier(galleryItems[currentIndex]), 100);
+            
+            // Recreate dots if needed
+            createDots();
+            
+            // Only setup magnifier on desktop after resize
+            if (!isMobile()) {
+                setTimeout(() => setupMagnifier(galleryItems[currentIndex]), 100);
+            }
         }
 
         // Initialize
