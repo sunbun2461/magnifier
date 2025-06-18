@@ -131,6 +131,13 @@ body {
 	position: absolute;
 	left: 50%;
 	transform: translateX(-50%);
+	opacity: 0;
+	pointer-events: none;
+}
+
+.thumbnail-slider:hover .thumbnail-nav-button {
+	opacity: 1;
+	pointer-events: auto;
 }
 
 .thumbnail-nav-button:hover {
@@ -148,8 +155,16 @@ body {
 	top: 0;
 }
 
+.thumbnail-nav-up svg {
+	transform: rotate(90deg);
+}
+
 .thumbnail-nav-down {
 	bottom: 0;
+}
+
+.thumbnail-nav-down svg {
+	transform: rotate(90deg);
 }
 
 /* Main image container */
